@@ -1,3 +1,16 @@
 package ar.edu.utn.dds.k3003;
 
-public class
+import java.util.List;
+
+public class Fachada{
+
+
+  NecesidadMaterialDTO registrarNecesidad(NecesidadMaterialDTO necesidadMaterialDTO){
+     
+    EntidadBeneficaDTO entidadDTO = buscarEntidadPorID(entidadID);
+    entidadDTO.getNecesidades().add(necesidadMaterialDTO);
+    return necesidadMaterialDTO;
+    
+  }
+  
+}
