@@ -28,7 +28,7 @@ public class Fachada{
 
   List<QuejaDTO> obtenerQuejasDe(String donadorID) throws NoSuchElementException{
     
-   List<Queja> quejasDeDonador = quejasRepository.obtenerQuejasDe(donadorID);
+   List<Queja> quejasDeDonador = quejasRepository.findAll().stream().filter(q -> q.getDonadorId().equals(donadorID)).findFirst();
    List<QuejaDTO> quejasDeDonadorDTO = new ArrayList();
     for(val queja : quejasDeDonador)
      {
