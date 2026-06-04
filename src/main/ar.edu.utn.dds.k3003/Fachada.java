@@ -12,5 +12,11 @@ public class Fachada{
     return necesidadMaterialDTO;
     
   }
+
+  QuejaDTO agregarQueja(QuejaDTO quejaDTO) throws NoSuchElementException{
+
+    DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
+    
+  }
   
 }
