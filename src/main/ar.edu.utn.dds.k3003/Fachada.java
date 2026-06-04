@@ -16,6 +16,26 @@ public class Fachada{
   QuejaDTO agregarQueja(QuejaDTO quejaDTO) throws NoSuchElementException{
 
     DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
+    quejaDTO.setDonadorID(donadorDTO.ID());
+    return quejaDTO;
+    
+  }
+
+  Boolean puedeDonar(String donadorID) throws NoSuchElementException{
+     
+    
+  }
+
+  List<QuejaDTO> obtenerQuejasDe(String donadorID) throws NoSuchElementException{
+    
+   List<Queja> quejasDeDonador = quejasRepository.obtenerQuejasDe(donadorID);
+   List<QuejaDTO> quejasDeDonadorDTO = new ArrayList();
+    for(val queja : quejasDeDonador)
+     {
+         quejasDeDonadorDTO.add(quejasDataMapper.toQuejaDTO(queja));
+     }
+    
+   return quejasDeDonadorDTO;
     
   }
   
