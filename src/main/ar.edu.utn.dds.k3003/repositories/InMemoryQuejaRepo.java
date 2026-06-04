@@ -8,7 +8,7 @@ public class InMemoryQuejaRepo implements QuejasRepository{
   private AtomicLong idSecuencial = new AtomicLong(1);
 
   public InMemoryQuejaRepo() {
-    this.donadores = new ArrayList<>();
+    this.quejas = new ArrayList<>();
   }
 
    
@@ -17,5 +17,21 @@ public class InMemoryQuejaRepo implements QuejasRepository{
        return this.quejas.stream().filter(q -> q.getId().equals(id)).findFirst();
    }
 
+
+  @Override
+  Queja save(Queja queja)
+  {
+    Queja quejaConID = queja;
+    quejaConID.setId(String.valueOf(idSecuencial.getAndIncrement()));
+
+    this.quejas.add(quejaConID);
+    return this.findById(quejaConID.getId()).get();
+  }
+
+  @Override
+  List<Queja> findAll()
+  {
+      return this quejas;
+  }
   
 }
