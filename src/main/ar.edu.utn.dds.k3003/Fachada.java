@@ -43,7 +43,11 @@ public class Fachada{
       throws NoSuchElementException{
 
           DonadorDTO donadorDTO = buscarDonadorPorId(donadorID);
+          if(obtenerQuejasDe(donadorID) >= 5 && estado == EstadoDonadorEnum.VERIFICADO)
+          donador.setEstado(EstadoDonadorEnum.SOSPECHOSO);
+          if(obtenerQuejasDe(donadorID) >= 10 && estado == EstadoDonadorEnum.SOSPECHOSO)
           donador.setEstado(EstadoDonadorEnum.BANEADO);
+        
           return donadorDTO;
         
       }
