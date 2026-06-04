@@ -37,4 +37,12 @@ public class InMemoryDonadoresRepo implements DonadorRepository {
     this.donadores.remove(donador.get());
     return donador.get();
   }
+
+  @Override
+  public List<Donador> findAll()
+  {
+      return this.donadores;
+  }
+
+                          
 }
