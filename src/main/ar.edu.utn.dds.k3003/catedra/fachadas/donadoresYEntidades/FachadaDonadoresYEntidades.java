@@ -10,25 +10,32 @@ public interface FachadaDonadoresYEntidades {
 
   DonadorDTO agregarDonador(DonadorDTO donadorDTO);
 
-  DonadorDTO buscarDonadorPorId(String donador_Id) throws NoSuchElementException;
-  
+  DonadorDTO buscarDonadorPorID(String donadorID) throws NoSuchElementException;
+
   EntidadBeneficaDTO agregarEntidad(EntidadBeneficaDTO entidadBeneficaDTO);
 
-  DonadorDTO agregarQuejaEnDonador(DonadorDTO donadorDTO,QuejaDTO quejaDTO);
-  
-  EntidadBeneficaDTO buscarEntidadPorID(String entidad_ID) throws NoSuchElementException;
+  EntidadBeneficaDTO buscarEntidadPorID(String entidadID) throws NoSuchElementException;
 
-  Boolean puedeDonar(DonadorDTO donadorDTO, EntidadBeneficaDTO entidadBeneficaDTO,DonacionDTO donacionDTO) throws NoSuchElementException;
+  NecesidadMaterialDTO registrarNecesidad(NecesidadMaterialDTO necesidadMaterialDTO);
 
-  DonadorDTO modificarEstado(String donador_ID, EstadoDonadorEnum estado)
+  QuejaDTO agregarQueja(QuejaDTO quejaDTO) throws NoSuchElementException;
+
+  Boolean puedeDonar(String donadorID) throws NoSuchElementException;
+
+  List<QuejaDTO> obtenerQuejasDe(String donadorID) throws NoSuchElementException;
+
+  DonadorDTO modificarEstado(String donadorID, EstadoDonadorEnum estado)
       throws NoSuchElementException;
 
-  DonadorDTO modificarCategoria(String donador_ID, String categoria) throws NoSuchElementException;
+  DonadorDTO modifcarCategoria(String donadorID, String categoria) throws NoSuchElementException;
 
-  DonadorStatsDTO estadisticasDonador(String donador_ID);
+  List<NecesidadMaterialDTO> obtenerNecesidadesInsatisfechasDe(String productoSolicitadoID);
 
-  List<QuejaDTO> obtenerQuejasDeDonador(String donador_Id);
-    
+  NecesidadMaterialDTO satisfacerNecesidad(String necesidadID, Integer cantidad)
+      throws NoSuchElementException;
+
+  DonadorStatsDTO estadisticasDonador(String donadorID);
+
   void setFachadaIncentivos(FachadaIncentivos fachadaIncentivos);
-    
+  
 }
