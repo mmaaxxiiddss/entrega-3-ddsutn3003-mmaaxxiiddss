@@ -51,5 +51,20 @@ public class Fachada{
           return donadorDTO;
         
       }
+
+   List<NecesidadMaterialDTO> obtenerNecesidadesInsatisfechasDe(String productoSolicitadoID)
+    {
+        ProductoSolicitadoDTO productoDTO = buscarSolicitacionPorId(productoSolicitadoID);
+        List<NecesidadMaterial> necesidades = necesidadRepository.findAll().stream().filter(n -> n.getProductoSolicitadoID().equals(productoSolicitadoID)).collect(Collectors.toList());
+        List<NecesidadMaterialDTO> necesidadesDTO = new ArrayList<>();
+        for(val necesidad : necesidades)
+           {
+               necesidadesDTO.add(necesidadDataMapper.toNecesidadDTO(necesidad));
+           }
+      
+        return necesidadesDTO;
+      
+    }
+                                                            
   
 }
