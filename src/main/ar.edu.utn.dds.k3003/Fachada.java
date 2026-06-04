@@ -38,5 +38,14 @@ public class Fachada{
    return quejasDeDonadorDTO;
     
   }
+
+  DonadorDTO modificarEstado(String donadorID, EstadoDonadorEnum estado)
+      throws NoSuchElementException{
+
+          DonadorDTO donadorDTO = buscarDonadorPorId(donadorID);
+          donador.setEstado(EstadoDonadorEnum.BANEADO);
+          return donadorDTO;
+        
+      }
   
 }
