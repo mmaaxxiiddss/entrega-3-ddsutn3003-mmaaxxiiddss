@@ -23,9 +23,13 @@
 ### Obligatorios
 | Método | Ruta | Descripción |
 |--------|------|-------------|
-| POST | /donadores | Registrar nuevo donador |
+| POST | /donadores | Agregar nuevo donador |
 | GET | /donadores | Listar todos donadores |
 | GET | /donadores/{id} | Buscar donador por ID |
+| POST | /entidades | Agregar nueva entidad
+| GET | /entidades | Listar todas entidades |
+| GET | /entidades/{id} | Buscar entidad por ID |
+6 metodos exactos.
 
 ### Adicionales
 | Método | Ruta | Descripción |
