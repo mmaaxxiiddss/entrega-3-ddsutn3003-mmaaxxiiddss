@@ -80,10 +80,18 @@ public class Fachada implements FachadaDonadoresYEntidades {
     {
         DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
         if(donadorDTO.getCategoria() == CategoriaDonadorEnum.OCASIONAL )
-            List<DonacionDTO> donacionesDTO = buscarDonaciones(donadorDTO);
-            
+           
+           List<DonacionDTO> donacionesDTO = buscarDonaciones(donadorDTO);
+           List<ProductoDTO> productosDTO = filtrarProductos(donacionesDTO);
+           List<CategoriaDTO> categoriasRepetidasDTO = filtrarCategorias(productosDTO);
+           List<CategoriaDTO> categoriasFiltradasDTO = eliminarDuplicados(categoriasRepetidasDTO);
+           if(categoriasFiltradasDTO.size >= 3){
+                 donadorDTO.setCategoria(CategoriaDonadorEnum.COLABORADOR);
+           }
+      return donadorDTO;
+    
     }
-
+  
    @Override
    List<NecesidadMaterialDTO> obtenerNecesidadesInsatisfechasDe(String productoSolicitadoID)
     {
