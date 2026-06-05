@@ -11,10 +11,13 @@ public class Fachada implements FachadaDonadoresYEntidades {
   private ProdSoliRepository prodSoliRepository;
   private EntidadBeneficaRepository entidadRepository;
 
+  private NecesidadDataMapper necesidadDataMapper;
+  
+  
   public FachadaDonadoresYEntidades(){
        super();
        necesidadRepository = new InMemoryNecesidadRepo();
-    
+       necesidadDataMapper = new NecesidadDataMapper();
   }
   
   @Override
@@ -77,6 +80,7 @@ public class Fachada implements FachadaDonadoresYEntidades {
         List<NecesidadMaterialDTO> necesidadesDTO = new ArrayList<>();
         for(val necesidad : necesidades)
            {
+               if(necesidad.getCantidadObjetivo() >= 0)
                necesidadesDTO.add(necesidadDataMapper.toNecesidadDTO(necesidad));
            }
       
@@ -88,10 +92,15 @@ public class Fachada implements FachadaDonadoresYEntidades {
     @Override
     NecesidadMaterialDTO satisfacerNecesidad(String necesidadID, Integer cantidad)
       throws NoSuchElementException{
+        
           NecesidadMaterial necesidad = this.necesidadRepository.findById(necesidadID);
           int cantAnt = necesidad.getCantidadObjetivo();
-          necesidad.setCantidadObjetivo(cantidad-cantAnt);
-          
+          if(cantidad <= cantAnt && cantidad >= 0)
+          {
+             necesidad.setCantidadObjetivo(cantAnt-cantidad);
+          }
+        
+          return this.necesidadDataMapper.toNecesidadDTO( necesidad);
       }
   
 }
