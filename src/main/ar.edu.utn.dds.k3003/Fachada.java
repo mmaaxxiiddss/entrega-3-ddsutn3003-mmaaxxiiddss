@@ -123,4 +123,16 @@ public class Fachada implements FachadaDonadoresYEntidades {
           return this.necesidadDataMapper.toNecesidadDTO( necesidad);
       }
   
+  @Override
+  DonadorStatsDTO estadisticasDonador(String donadorID){
+        
+       DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
+       DonadorStatsDTO donadorStatsDTO = new DonadorStatsDTO();
+       donadorStatsDTO.setEstado(donadorDTO.getEstado());
+
+
+
+  
+  }
+
 }
