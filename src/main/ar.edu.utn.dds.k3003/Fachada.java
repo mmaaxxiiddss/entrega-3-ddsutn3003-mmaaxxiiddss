@@ -1,10 +1,22 @@
 package ar.edu.utn.dds.k3003;
 package ar.edu.utn.dds.k3003.catedra.fachadas.FachadaDonadoresYEntidades;
 
+
 import java.util.List;
 
 public class Fachada implements FachadaDonadoresYEntidades {
 
+  private NecesidadRepository necesidadRepository;
+  private QuejaRepository quejasRepository;
+  private ProdSoliRepository prodSoliRepository;
+  private EntidadBeneficaRepository entidadRepository;
+
+  public FachadaDonadoresYEntidades(){
+       super();
+       necesidadRepository = new InMemoryNecesidadRepo();
+    
+  }
+  
   @Override
   public NecesidadMaterialDTO registrarNecesidad(NecesidadMaterialDTO necesidadMaterialDTO){
      
