@@ -137,4 +137,10 @@ public class Fachada implements FachadaDonadoresYEntidades {
   
   }
 
+  @Override
+  void setFachadaIncentivos(FachadaIncentivos fachadaIncentivos){
+
+       this.fachadaIncentivos = fachadaIncentivos;
+  }
+
 }
