@@ -23,18 +23,21 @@ public class Fachada implements FachadaDonadoresYEntidades {
   @Override
   public NecesidadMaterialDTO registrarNecesidad(NecesidadMaterialDTO necesidadMaterialDTO){
      
-    EntidadBeneficaDTO entidadDTO = buscarEntidadPorID(entidadID);
-    entidadDTO.getNecesidades().add(necesidadMaterialDTO);
-    return necesidadMaterialDTO;
+    
+    val necesidad = this.necesidadDataMapper.toNecesidad(necesidadMaterialDTO);
+    val necesidadGuardada = this.necesidadRepository.save(necesidad);
+    return this.necesidadDataMapper.toNecesidadDTO( necesidadGuardada);
+
     
   }
 
   @Override
   QuejaDTO agregarQueja(QuejaDTO quejaDTO) throws NoSuchElementException{
 
-    DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
-    quejaDTO.setDonadorID(donadorDTO.ID());
-    return quejaDTO;
+    val queja = this.quejasDataMapper.toQueja(quejaDTO);
+    val quejaGuardada = this.quejasRepository.save(queja);
+    
+    return this.quejasDataMapper.toQuejaDTO(quejaGuardada);
     
   }
 
@@ -47,7 +50,7 @@ public class Fachada implements FachadaDonadoresYEntidades {
   @Override
   List<QuejaDTO> obtenerQuejasDe(String donadorID) throws NoSuchElementException{
     
-   List<Queja> quejasDeDonador = quejasRepository.findAll().stream().filter(q -> q.getDonadorId().equals(donadorID)).findFirst();
+   List<Queja> quejasDeDonador = quejasRepository.findAll().stream().filter(q -> q.getDonadorId().equals(donadorID)).collect(Collectors.toList());
    List<QuejaDTO> quejasDeDonadorDTO = new ArrayList();
     for(val queja : quejasDeDonador)
      {
@@ -63,9 +66,9 @@ public class Fachada implements FachadaDonadoresYEntidades {
       throws NoSuchElementException{
 
           DonadorDTO donadorDTO = buscarDonadorPorId(donadorID);
-          if(obtenerQuejasDe(donadorID) >= 5 && estado == EstadoDonadorEnum.VERIFICADO)
+          if(obtenerQuejasDe(donadorID).size >= 5 && estado == EstadoDonadorEnum.VERIFICADO)
           donador.setEstado(EstadoDonadorEnum.SOSPECHOSO);
-          if(obtenerQuejasDe(donadorID) >= 10 && estado == EstadoDonadorEnum.SOSPECHOSO)
+          if(obtenerQuejasDe(donadorID).size >= 10 && estado == EstadoDonadorEnum.SOSPECHOSO)
           donador.setEstado(EstadoDonadorEnum.BANEADO);
         
           return donadorDTO;
