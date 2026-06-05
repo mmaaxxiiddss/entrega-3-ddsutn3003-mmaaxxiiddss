@@ -79,7 +79,9 @@ public class Fachada implements FachadaDonadoresYEntidades {
     DonadorDTO modifcarCategoria(String donadorID, String categoria) throws NoSuchElementException
     {
         DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
-        
+        if(donadorDTO.getCategoria() == CategoriaDonadorEnum.OCASIONAL )
+            List<DonacionDTO> donacionesDTO = buscarDonaciones(donadorDTO);
+            
     }
 
    @Override
