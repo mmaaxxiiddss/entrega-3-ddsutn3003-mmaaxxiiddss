@@ -83,6 +83,15 @@ public class Fachada implements FachadaDonadoresYEntidades {
         return necesidadesDTO;
       
     }
-                                                            
+
+
+    @Override
+    NecesidadMaterialDTO satisfacerNecesidad(String necesidadID, Integer cantidad)
+      throws NoSuchElementException{
+          NecesidadMaterial necesidad = this.necesidadRepository.findById(necesidadID);
+          int cantAnt = necesidad.getCantidadObjetivo();
+          necesidad.setCantidadObjetivo(cantidad-cantAnt);
+          
+      }
   
 }
