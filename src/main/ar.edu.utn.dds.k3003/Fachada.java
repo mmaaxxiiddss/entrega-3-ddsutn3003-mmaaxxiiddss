@@ -12,12 +12,16 @@ public class Fachada implements FachadaDonadoresYEntidades {
   private EntidadBeneficaRepository entidadRepository;
 
   private NecesidadDataMapper necesidadDataMapper;
+  private QuejaDataMapper quejasDataMapper;
   
   
   public FachadaDonadoresYEntidades(){
        super();
        necesidadRepository = new InMemoryNecesidadRepo();
        necesidadDataMapper = new NecesidadDataMapper();
+       quejasRepository = new InMemoryQuejaRepo();
+       quejasDataMapper = new QuejaDataMapper();
+  
   }
   
   @Override
