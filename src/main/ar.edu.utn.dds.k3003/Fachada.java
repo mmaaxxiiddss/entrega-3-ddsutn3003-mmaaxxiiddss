@@ -72,6 +72,13 @@ public class Fachada implements FachadaDonadoresYEntidades {
         
     }
 
+    @Override
+    DonadorDTO modifcarCategoria(String donadorID, String categoria) throws NoSuchElementException
+    {
+        DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
+        
+    }
+
    @Override
    List<NecesidadMaterialDTO> obtenerNecesidadesInsatisfechasDe(String productoSolicitadoID)
     {
