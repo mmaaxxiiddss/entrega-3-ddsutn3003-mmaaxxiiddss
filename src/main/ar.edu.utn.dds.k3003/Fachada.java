@@ -1,11 +1,12 @@
 package ar.edu.utn.dds.k3003;
+package ar.edu.utn.dds.k3003.catedra.fachadas.FachadaDonadoresYEntidades;
 
 import java.util.List;
 
 public class Fachada implements FachadaDonadoresYEntidades {
 
-
-  NecesidadMaterialDTO registrarNecesidad(NecesidadMaterialDTO necesidadMaterialDTO){
+  @Override
+  public NecesidadMaterialDTO registrarNecesidad(NecesidadMaterialDTO necesidadMaterialDTO){
      
     EntidadBeneficaDTO entidadDTO = buscarEntidadPorID(entidadID);
     entidadDTO.getNecesidades().add(necesidadMaterialDTO);
@@ -13,6 +14,7 @@ public class Fachada implements FachadaDonadoresYEntidades {
     
   }
 
+  @Override
   QuejaDTO agregarQueja(QuejaDTO quejaDTO) throws NoSuchElementException{
 
     DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
@@ -21,11 +23,13 @@ public class Fachada implements FachadaDonadoresYEntidades {
     
   }
 
+  @Override
   Boolean puedeDonar(String donadorID) throws NoSuchElementException{
      
     
   }
 
+  @Override
   List<QuejaDTO> obtenerQuejasDe(String donadorID) throws NoSuchElementException{
     
    List<Queja> quejasDeDonador = quejasRepository.findAll().stream().filter(q -> q.getDonadorId().equals(donadorID)).findFirst();
@@ -39,6 +43,7 @@ public class Fachada implements FachadaDonadoresYEntidades {
     
   }
 
+  @Override
   DonadorDTO modificarEstado(String donadorID, EstadoDonadorEnum estado)
       throws NoSuchElementException{
 
@@ -50,8 +55,9 @@ public class Fachada implements FachadaDonadoresYEntidades {
         
           return donadorDTO;
         
-      }
+    }
 
+   @Override
    List<NecesidadMaterialDTO> obtenerNecesidadesInsatisfechasDe(String productoSolicitadoID)
     {
         ProductoSolicitadoDTO productoDTO = buscarSolicitacionPorId(productoSolicitadoID);
