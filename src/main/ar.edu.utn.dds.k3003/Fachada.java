@@ -76,10 +76,10 @@ public class Fachada implements FachadaDonadoresYEntidades {
     }
 
     @Override
-    DonadorDTO modifcarCategoria(String donadorID, String categoria) throws NoSuchElementException
+    DonadorDTO modifcarCategoria(String donadorID,CategoriaDonadorEnum categoria) throws NoSuchElementException
     {
         DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
-        if(donadorDTO.getCategoria() == CategoriaDonadorEnum.OCASIONAL )
+        if(categoria == CategoriaDonadorEnum.OCASIONAL )
            
            List<DonacionDTO> donacionesDTO = buscarDonaciones(donadorDTO);
            List<ProductoDTO> productosDTO = filtrarProductos(donacionesDTO);
@@ -88,6 +88,7 @@ public class Fachada implements FachadaDonadoresYEntidades {
            if(categoriasFiltradasDTO.size >= 3){
                  donadorDTO.setCategoria(CategoriaDonadorEnum.COLABORADOR);
            }
+      
       return donadorDTO;
     
     }
@@ -127,9 +128,10 @@ public class Fachada implements FachadaDonadoresYEntidades {
   DonadorStatsDTO estadisticasDonador(String donadorID){
         
        DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
-       DonadorStatsDTO donadorStatsDTO = new DonadorStatsDTO();
+       DonadorStatsDTO donadorStatsDTO = buscarDonadorStatsPorDonadorID(donadorID);
        donadorStatsDTO.setEstado(donadorDTO.getEstado());
 
+       MisionDTO misionDTO = buscarMisionPorId(donadorStatsDTO.getMisionID());
 
 
   
