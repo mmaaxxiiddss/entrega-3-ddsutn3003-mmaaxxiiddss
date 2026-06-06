@@ -13,6 +13,8 @@ public class Fachada implements FachadaDonadoresYEntidades {
 
   private NecesidadDataMapper necesidadDataMapper;
   private QuejaDataMapper quejasDataMapper;
+
+  private FachadaIncentivos fachadaIncentivos;
   
   
   public FachadaDonadoresYEntidades(){
@@ -134,10 +136,12 @@ public class Fachada implements FachadaDonadoresYEntidades {
        DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
        DonadorStatsDTO donadorStatsDTO = buscarDonadorStatsPorDonadorID(donadorID);
        donadorStatsDTO.setEstado(donadorDTO.getEstado());
-
+       donadorStatsDTO.setCategoria(donadorDTO.getCategoria());
        MisionDTO misionDTO = buscarMisionPorId(donadorStatsDTO.getMisionID());
+       List<InsigniaDTO> insigniasDTO = buscarInsigniasPorId(donadorStatsDTO.getInsigniasID());
+       
 
-
+       
   
   }
 
