@@ -1,13 +1,19 @@
 package ar.edu.utn.dds.k3003;
 
+
 import java.util.List;
+
 
 public class ImplFachadaIncentivos{
 
       private MisionRepository misionRepo;
-      private MisiinDataMapper misionDataMapper;
+      private MisionDataMapper misionDataMapper;
   
-  
+      private FachadaDonaciones fachadaDonaciones;
+      private FachadaDonadores fachadaDonadores;
+
+
+      
       @Override
       void asignarMisionADonador(String donadorID, MisionDTO misionDTO) throws NoSuchElementException
        {
@@ -18,4 +24,15 @@ public class ImplFachadaIncentivos{
             
        }
 
+       @Override
+       void setFachadaDonaciones(FachadaDonaciones fachadaDonaciones){
+           this.fachadaDonaciones = fachadaDonaciones;
+       }
+
+      @Override
+      void setFachadaDonadoresYEntidades(FachadaDonadoresYEntidades fachadaDonadoresYEntidades){
+           this.fachadaDonadores = fachadaDonadores;
+
+      }
+      
 }
