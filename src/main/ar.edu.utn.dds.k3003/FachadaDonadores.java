@@ -4,7 +4,7 @@ package ar.edu.utn.dds.k3003.catedra.fachadas.FachadaDonadoresYEntidades;
 
 import java.util.List;
 
-public class Fachada implements FachadaDonadoresYEntidades {
+public class FachadaDonadores implements FachadaDonadoresYEntidades {
 
   private NecesidadRepository necesidadRepository;
   private QuejaRepository quejasRepository;
