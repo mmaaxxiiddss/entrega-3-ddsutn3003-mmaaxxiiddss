@@ -29,8 +29,10 @@ public class ImplFachadaIncentivos{
       @Override
       void asignarMisionADonador(String donadorID, MisionDTO misionDTO) throws NoSuchElementException
        {
+            List<String> donacionesID = this.fachadaDonacion.buscar();
+            DonacionDTO donacionDTO = buscarDonacionPorId();
             List<NecesidadMaterial> necesidades = 
-            DepositoDTO depositoDTO = 
+            DepositoDTO depositoDTO = buscarDepositoPorId();
             PaqueteDTO paqueteDTO = 
             AsignacionDTO asignacionDTO = this.fachadaLogistica.ejecutarMatchmaking();
             DonadorStatsDTO donadorStatsDTO = this.fachadaDonador.estadisticasDonador(donadorID);
