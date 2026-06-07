@@ -12,22 +12,27 @@ public class ImplFachadaIncentivos{
       private InsigniaDataMapper insigniaDataMapper;
       
       
-      private FachadaDonaciones fachadaDonaciones;
-      private FachadaDonadores fachadaDonadores;
+      private FachadaDonacion fachadaDonacion;
+      private FachadaDonador fachadaDonador;
+      private FachadaLogistica fachadaLogistica;
       
       public ImplFachadaIncentivos()
       {
            super();
            this.misionRepo = new InMemoryMisionRepo();
            this.misionDataMapper = new MisionDataMapper();
-
+           this.fachadaLogistica = new FachadaLogistica();
+           
       }
 
       
       @Override
       void asignarMisionADonador(String donadorID, MisionDTO misionDTO) throws NoSuchElementException
        {
-            AsignacionDTO asignacionDTO = 
+            List<NecesidadMaterial> necesidades = 
+            DepositoDTO depositoDTO = 
+            PaqueteDTO paqueteDTO = 
+            AsignacionDTO asignacionDTO = this.fachadaLogistica.ejecutarMatchmaking();
             DonadorStatsDTO donadorStatsDTO = this.fachadaDonador.estadisticasDonador(donadorID);
             donadorStatsDTO.setMisionActualID(misionDTO.getID());
             
@@ -51,12 +56,12 @@ public class ImplFachadaIncentivos{
 
        @Override
        void setFachadaDonaciones(FachadaDonaciones fachadaDonaciones){
-           this.fachadaDonaciones = fachadaDonaciones;
+           this.fachadaDonacion = fachadaDonaciones;
        }
 
       @Override
       void setFachadaDonadoresYEntidades(FachadaDonadoresYEntidades fachadaDonadoresYEntidades){
-           this.fachadaDonadores = fachadaDonadores;
+           this.fachadaDonador = fachadaDonadores;
 
       }
       
