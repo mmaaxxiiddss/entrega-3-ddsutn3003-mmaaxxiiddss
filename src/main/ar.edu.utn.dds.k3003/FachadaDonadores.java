@@ -10,7 +10,9 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   private QuejaRepository quejasRepository;
   private ProdSoliRepository prodSoliRepository;
   private EntidadBeneficaRepository entidadRepository;
+  private DonadoresRepository donadoresRepository;
 
+  
   private NecesidadDataMapper necesidadDataMapper;
   private QuejaDataMapper quejasDataMapper;
 
@@ -23,7 +25,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
        necesidadDataMapper = new NecesidadDataMapper();
        quejasRepository = new InMemoryQuejaRepo();
        quejasDataMapper = new QuejaDataMapper();
-  
+       donadoresRepository = new InMemoryDonadorRepo();
   }
   
   @Override
@@ -137,11 +139,13 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
        DonadorStatsDTO donadorStatsDTO = buscarDonadorStatsPorDonadorID(donadorID);
        donadorStatsDTO.setEstado(donadorDTO.getEstado());
        donadorStatsDTO.setCategoria(donadorDTO.getCategoria());
-       MisionDTO misionDTO = buscarMisionPorId(donadorStatsDTO.getMisionID());
-       List<InsigniaDTO> insigniasDTO = buscarInsigniasPorId(donadorStatsDTO.getInsigniasID());
        
+       
+       List<InsigniaDTO> insigniasDTO = getInsigniasDeDonador(donadorID);
+       List<String> insigniasID = insigniasDTO.stream().map
+       MisionDTO misionDTO = getMisionEnCursoDeDonador(donadorID);
 
-       
+       donadorStatsDTO.setInsignias(
   
   }
 
