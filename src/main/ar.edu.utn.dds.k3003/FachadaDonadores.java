@@ -6,26 +6,26 @@ import java.util.List;
 
 public class FachadaDonadores implements FachadaDonadoresYEntidades {
 
-  private NecesidadRepository necesidadRepository;
-  private QuejaRepository quejasRepository;
-  private ProdSoliRepository prodSoliRepository;
+  private NecesidadMaterialRepository necesidadMaterialRepository;
+  private QuejaRepository quejaRepository;
+  
   private EntidadBeneficaRepository entidadRepository;
-  private DonadoresRepository donadoresRepository;
+  private DonadorRepository donadorRepository;
 
   
-  private NecesidadDataMapper necesidadDataMapper;
-  private QuejaDataMapper quejasDataMapper;
+  private NecesidadMaterialDataMapper necesidadMaterialDataMapper;
+  private QuejaDataMapper quejaDataMapper;
 
   private FachadaIncentivos fachadaIncentivos;
   
   
   public FachadaDonadoresYEntidades(){
        super();
-       necesidadRepository = new InMemoryNecesidadRepo();
-       necesidadDataMapper = new NecesidadDataMapper();
-       quejasRepository = new InMemoryQuejaRepo();
-       quejasDataMapper = new QuejaDataMapper();
-       donadoresRepository = new InMemoryDonadorRepo();
+       necesidadMaterialRepository = new InMemoryNecesidadMaterialRepo();
+       necesidadMaterialDataMapper = new NecesidadMaterialDataMapper();
+       quejaRepository = new InMemoryQuejaRepo();
+       quejaDataMapper = new QuejaDataMapper();
+       donadorRepository = new InMemoryDonadorRepo();
   }
   
   @Override
@@ -34,7 +34,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
     
     val necesidad = this.necesidadDataMapper.toNecesidad(necesidadMaterialDTO);
     val necesidadGuardada = this.necesidadRepository.save(necesidad);
-    return this.necesidadDataMapper.toNecesidadDTO( necesidadGuardada);
+    return this.necesidadDataMapper.toNecesidadDTO(necesidadGuardada);
 
     
   }
@@ -104,8 +104,8 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
    @Override
    List<NecesidadMaterialDTO> obtenerNecesidadesInsatisfechasDe(String productoSolicitadoID)
     {
-        ProductoSolicitadoDTO productoDTO = buscarSolicitacionPorId(productoSolicitadoID);
-        List<NecesidadMaterial> necesidades = necesidadRepository.findAll().stream().filter(n -> n.getProductoSolicitadoID().equals(productoSolicitadoID)).collect(Collectors.toList());
+        
+        val necesidades = necesidadRepository.findAll().stream().filter(n -> n.getProductoSolicitadoID().equals(productoSolicitadoID)).collect(Collectors.toList());
         List<NecesidadMaterialDTO> necesidadesDTO = new ArrayList<>();
         for(val necesidad : necesidades)
            {
@@ -122,24 +122,23 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
     NecesidadMaterialDTO satisfacerNecesidad(String necesidadID, Integer cantidad)
       throws NoSuchElementException{
         
-          NecesidadMaterial necesidad = this.necesidadRepository.findById(necesidadID);
+          val necesidad = this.necesidadRepository.findById(necesidadID);
           int cantAnt = necesidad.getCantidadObjetivo();
           if(cantidad <= cantAnt && cantidad >= 0)
           {
              necesidad.setCantidadObjetivo(cantAnt-cantidad);
           }
         
-          return this.necesidadDataMapper.toNecesidadDTO( necesidad);
+          return this.necesidadDataMapper.toNecesidadDTO(necesidad);
       }
   
   @Override
   DonadorStatsDTO estadisticasDonador(String donadorID){
         
        DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
-       DonadorStatsDTO donadorStatsDTO = buscarDonadorStatsPorDonadorID(donadorID);
+       DonadorStatsDTO donadorStatsDTO = new donadorStatsDTO();
        donadorStatsDTO.setEstado(donadorDTO.getEstado());
        donadorStatsDTO.setCategoria(donadorDTO.getCategoria());
-       
        
        List<InsigniaDTO> insigniasDTO = this.fachadaIncentivos.getInsigniasDeDonador(donadorID);
        List<String> insigniasID = insigniasDTO.stream().map(Insignia::getID).collect(Collectors.toList());
@@ -147,7 +146,8 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
 
        donadorStatsDTO.setInsigniasID(insigniasID);
        donadorStatsDTO.setMisionActualID(misionDTO.getID());
-  
+
+       return donadorStatsDTO;
   }
 
   @Override
