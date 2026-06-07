@@ -5,13 +5,23 @@ import java.util.List;
 
 
 public class ImplFachadaIncentivos{
-
+      
       private MisionRepository misionRepo;
       private MisionDataMapper misionDataMapper;
-  
+      private InsigniaRepository insigniaRepo;
+      private InsigniaDataMapper insigniaDataMapper;
+      
+      
       private FachadaDonaciones fachadaDonaciones;
       private FachadaDonadores fachadaDonadores;
+      
+      public ImplFachadaIncentivos()
+      {
+           super();
+           this.misionRepo = new InMemoryMisionRepo();
+           this.misionDataMapper = 
 
+      }
 
       
       @Override
@@ -23,6 +33,22 @@ public class ImplFachadaIncentivos{
             val misionGuardada = this.misionRepository.save(mision);
             
        }
+
+      @Override
+      void asignarInsigniaADonador(String donadorID, InsigniaDTO insigniaDTO)
+      throws NoSuchElementException{
+
+          
+            
+      }
+
+      @Override
+      void procesarDonador(String donadorID) throws NoSuchElementException{
+
+
+            
+      }
+      
 
        @Override
        void setFachadaDonaciones(FachadaDonaciones fachadaDonaciones){
