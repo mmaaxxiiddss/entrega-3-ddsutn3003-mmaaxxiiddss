@@ -8,12 +8,13 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.val;
 
-public class InMemoryDonadoresRepo implements DonadorRepository {
+
+public class InMemoryDonadorRepo implements DonadorRepository {
 
   private List<Donador> donadores;
   private AtomicLong idSecuencial = new AtomicLong(1);
 
-  public InMemoryDonadoresRepo() {
+  public InMemoryDonadorRepo() {
     this.donadores = new ArrayList<>();
   }
 
