@@ -58,7 +58,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   @Override
   List<QuejaDTO> obtenerQuejasDe(String donadorID) throws NoSuchElementException{
     
-   List<Queja> quejasDeDonador = quejasRepository.findAll().stream().filter(q -> q.getDonadorId().equals(donadorID)).collect(Collectors.toList());
+   val quejasDeDonador = quejasRepository.findAll().stream().filter(q -> q.getDonadorId().equals(donadorID)).collect(Collectors.toList());
    List<QuejaDTO> quejasDeDonadorDTO = new ArrayList();
     for(val queja : quejasDeDonador)
      {
@@ -84,17 +84,22 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
     }
 
     @Override
-    DonadorDTO modifcarCategoria(String donadorID,CategoriaDonadorEnum categoria) throws NoSuchElementException
+    DonadorDTO modifcarCategoria(String donadorID,String categoria) throws NoSuchElementException
     {
         DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
-        if(categoria == CategoriaDonadorEnum.OCASIONAL )
+        if(categoria == "VERIFICADO" )
            
-           List<DonacionDTO> donacionesDTO = buscarDonaciones(donadorDTO);
-           List<ProductoDTO> productosDTO = filtrarProductos(donacionesDTO);
-           List<CategoriaDTO> categoriasRepetidasDTO = filtrarCategorias(productosDTO);
+           val donaciones = 
+           
+           for(val donacion : donaciones) 
+           {
+           ProductoDTO productoDTO = this.fachadaDonacion.buscarProductoPorID(donacion.getProductoID());
+           
+           }
+           
            List<CategoriaDTO> categoriasFiltradasDTO = eliminarDuplicados(categoriasRepetidasDTO);
            if(categoriasFiltradasDTO.size >= 3){
-                 donadorDTO.setCategoria(CategoriaDonadorEnum.COLABORADOR);
+                 donadorDTO.setCategoria("COLABORADOR");
            }
       
       return donadorDTO;
