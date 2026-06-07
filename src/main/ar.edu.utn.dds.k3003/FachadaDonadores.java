@@ -141,11 +141,12 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
        donadorStatsDTO.setCategoria(donadorDTO.getCategoria());
        
        
-       List<InsigniaDTO> insigniasDTO = getInsigniasDeDonador(donadorID);
-       List<String> insigniasID = insigniasDTO.stream().map
-       MisionDTO misionDTO = getMisionEnCursoDeDonador(donadorID);
+       List<InsigniaDTO> insigniasDTO = this.fachadaIncentivos.getInsigniasDeDonador(donadorID);
+       List<String> insigniasID = insigniasDTO.stream().map(Insignia::getID).collect(Collectors.toList());
+       MisionDTO misionDTO = this.fachadaIncentivos.getMisionEnCursoDeDonador(donadorID);
 
-       donadorStatsDTO.setInsignias(
+       donadorStatsDTO.setInsigniasID(insigniasID);
+       donadorStatsDTO.setMisionActualID(misionDTO.getID());
   
   }
 
