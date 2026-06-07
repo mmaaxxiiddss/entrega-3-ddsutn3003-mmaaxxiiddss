@@ -19,7 +19,7 @@ public class ImplFachadaIncentivos{
       {
            super();
            this.misionRepo = new InMemoryMisionRepo();
-           this.misionDataMapper = 
+           this.misionDataMapper = new MisionDataMapper();
 
       }
 
@@ -27,10 +27,9 @@ public class ImplFachadaIncentivos{
       @Override
       void asignarMisionADonador(String donadorID, MisionDTO misionDTO) throws NoSuchElementException
        {
-            DonadorStatsDTO donadorStatsDTO = this.fachadaDonadores.buscarDonadorStatsPorDonadorId(donadorID);
-            val mision = this.misionDataMapper.toMision(misionDTO);
-            mision.setDonadorId(donadorID);
-            val misionGuardada = this.misionRepository.save(mision);
+            AsignacionDTO asignacionDTO = 
+            DonadorStatsDTO donadorStatsDTO = this.fachadaDonador.estadisticasDonador(donadorID);
+            donadorStatsDTO.setMisionActualID(misionDTO.getID());
             
        }
 
