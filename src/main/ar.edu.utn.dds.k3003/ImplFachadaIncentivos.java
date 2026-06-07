@@ -17,7 +17,7 @@ public class ImplFachadaIncentivos{
       @Override
       void asignarMisionADonador(String donadorID, MisionDTO misionDTO) throws NoSuchElementException
        {
-            
+            DonadorStatsDTO donadorStatsDTO = this.fachadaDonadores.buscarDonadorStatsPorDonadorId(donadorID);
             val mision = this.misionDataMapper.toMision(misionDTO);
             mision.setDonadorId(donadorID);
             val misionGuardada = this.misionRepository.save(mision);
