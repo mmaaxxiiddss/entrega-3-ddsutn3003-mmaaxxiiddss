@@ -51,8 +51,11 @@ public class ImplFachadaLogistica{
           depositoNuevoDTO.setStockActual(new ArrayList<>());
           depositoNuevoDTO.getStockActual().add(PaqueteDTO);
           this.depositoRepository.save(this.depositoDataMapper.toDeposito(depositoNuevoDTO));
-          AsignacionDTO asignacionDTO = this.fachadaLogistica.
-          NecesidadMaterial this.fachadaDonadores.satisfacerNecesidad(asignacionDTO.getNecesidadID(),paqueteDTO.getCantidad());
+          AsignacionDTO asignacionDTO = buscarAsignacionPorPaqueteID(paqueteDTO.getID());
+          NecesidadMaterialDTO necesidadMaterialDTO = this.fachadaDonadores.satisfacerNecesidad(asignacionDTO.getNecesidadID(),paqueteDTO.getCantidad());
+          val necesidad = this.fachadaDonadores.getNecesidadDataMapper().toNecesidad(necesidadMaterialDTO);
+          val necesidadGuardada = this.fachadaDonadores.getNecesidadMaterialRepository().save(necesidad);
+          
       }
 
       depositoDTO.getStockActual().add(PaqueteDTO);
