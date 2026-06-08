@@ -56,11 +56,16 @@ public class ImplFachadaLogistica{
           val necesidad = this.fachadaDonadores.getNecesidadDataMapper().toNecesidad(necesidadMaterialDTO);
           val necesidadGuardada = this.fachadaDonadores.getNecesidadMaterialRepository().save(necesidad);
           
-      }
-
+      }else{
+      
       depositoDTO.getStockActual().add(PaqueteDTO);
       this.depositoRepository.save(this.depositoDataMapper.toDeposito(depositoDTO));
+      AsignacionDTO asignacionDTO = buscarAsignacionPorPaqueteID(paqueteDTO.getID());
+      NecesidadMaterialDTO necesidadMaterialDTO = this.fachadaDonadores.satisfacerNecesidad(asignacionDTO.getNecesidadID(),paqueteDTO.getCantidad());
+      val necesidad = this.fachadaDonadores.getNecesidadDataMapper().toNecesidad(necesidadMaterialDTO);
+      val necesidadGuardada = this.fachadaDonadores.getNecesidadMaterialRepository().save(necesidad);
       
+      }
     
   }
 
