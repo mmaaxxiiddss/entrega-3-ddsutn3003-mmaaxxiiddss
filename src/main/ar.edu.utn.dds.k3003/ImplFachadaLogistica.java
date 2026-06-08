@@ -39,8 +39,18 @@ public class ImplFachadaLogistica{
   
   @Override
   void reportarEntrega(PaqueteDTO paqueteDTO){
+      DepositoDTO depositoDTO = buscarDepositoPorID(paqueteDTO.getDepositoID());
+      if(depositoDTO.getCantidadMaxima() == depositoDTO.getStockActual().size())
+      {
+          depositoNuevoDTO = new DepositoDTO();
+          depositoNuevoDTO.setID(depositoDTO.getID()+1);
+          depositoNuevoDTO.setCantidadMaxima(depositoDTO.getCantidadMaxima());
+          depositoNuevoDTO.setStockActual(new ArrayList<>());
+      }
+    
+      this.depositoRepository.save(this.depositoDataMapper.toDeposito(depositoDTO));
       
-        
+    
   }
 
   @Override
@@ -53,7 +63,7 @@ public class ImplFachadaLogistica{
   
   @Override
   void setFachadaDonaciones(FachadaDonaciones fachadaDonaciones){
-
+      
       this.fachadafachadaDonacion = fachadaDonaciones;
 
     
