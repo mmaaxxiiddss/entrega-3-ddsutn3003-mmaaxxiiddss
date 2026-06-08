@@ -49,8 +49,12 @@ public class ImplFachadaLogistica{
           depositoNuevoDTO.setDireccion(depositoDTO.getDireccion());
           depositoNuevoDTO.setCapacidadMaxima(depositoDTO.getCapacidadMaxima());
           depositoNuevoDTO.setStockActual(new ArrayList<>());
+          depositoNuevoDTO.getStockActual().add(PaqueteDTO);
+          this.depositoRepository.save(this.depositoDataMapper.toDeposito(depositoNuevoDTO));
+          
       }
-    
+
+      depositoDTO.getStockActual().add(PaqueteDTO);
       this.depositoRepository.save(this.depositoDataMapper.toDeposito(depositoDTO));
       
     
