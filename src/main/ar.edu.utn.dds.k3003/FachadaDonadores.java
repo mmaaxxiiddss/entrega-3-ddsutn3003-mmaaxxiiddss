@@ -12,12 +12,14 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   private EntidadBeneficaRepository entidadRepository;
   private DonadorRepository donadorRepository;
 
+  private DonadorstatsRepository donadorstatsRepository;
   
   private NecesidadMaterialDataMapper necesidadMaterialDataMapper;
   private QuejaDataMapper quejaDataMapper;
 
   private FachadaIncentivos fachadaIncentivos;
-  
+
+  private 
   
   public FachadaDonadoresYEntidades(){
        super();
@@ -26,12 +28,13 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
        quejaRepository = new InMemoryQuejaRepo();
        quejaDataMapper = new QuejaDataMapper();
        donadorRepository = new InMemoryDonadorRepo();
+       donadorstatsRepository = InMemoryDonadorstatsRepo();
   }
   
   @Override
   public NecesidadMaterialDTO registrarNecesidad(NecesidadMaterialDTO necesidadMaterialDTO){
      
-    
+    necesidadMaterialDTO.setID();
     val necesidad = this.necesidadDataMapper.toNecesidad(necesidadMaterialDTO);
     val necesidadGuardada = this.necesidadRepository.save(necesidad);
     return this.necesidadDataMapper.toNecesidadDTO(necesidadGuardada);
