@@ -11,9 +11,15 @@ public class ImplFachadaLogistica{
   private DepositoRepository depositoRepo;
   private DepositoDataMapper depositoDataMapper;
 
+  private FachadaDonacion fachadaDonacion;
+  private FachadaDonadoresYEntidades fachadaDonadores;
+  
+  
   public class ImplFachadaLogistica(){
        super();
        this.depositoRepo = new InMemoryDepositoRepo();
+       this.asignacionRepo = new InMemoryAsignacionRepo();
+ 
   }
   
   @Override
@@ -40,6 +46,7 @@ public class ImplFachadaLogistica{
   @Override
   void setFachadaDonadoresYEntidades(FachadaDonadoresYEntidades fachadaDonadoresYEntidades){
 
+      this.fachadaDonadores = fachadaDonadoresYEntidades;
 
       
   }
@@ -47,7 +54,9 @@ public class ImplFachadaLogistica{
   @Override
   void setFachadaDonaciones(FachadaDonaciones fachadaDonaciones){
 
-      
+      this.fachadafachadaDonacion = fachadaDonaciones;
+
+    
   }
   
   
