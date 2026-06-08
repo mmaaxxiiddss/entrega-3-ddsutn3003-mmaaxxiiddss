@@ -12,4 +12,15 @@ public class ImplFachadaLogistica{
     
   }
 
+  @Override
+  AsignacionDTO ejecutarMatchmaking(
+      String depositoID, PaqueteDTO paqueteDTO, List<NecesidadMaterialDTO> necesidades){
+      
+  }
+  
+  @Override
+  void reportarEntrega(PaqueteDTO paqueteDTO){
+       
+  }
+  
 }
