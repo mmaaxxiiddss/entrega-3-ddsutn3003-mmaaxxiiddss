@@ -7,7 +7,8 @@ public class ImplFachadaLogistica{
   @Override
   void setAlgoritmoMM(String depositoID, TipoAlgoritmoEnum tipoAlgoritmo){
 
-
+      DepositoDTO depositoDTO = buscarDepositoPorID(depositoID);
+      
     
   }
 
