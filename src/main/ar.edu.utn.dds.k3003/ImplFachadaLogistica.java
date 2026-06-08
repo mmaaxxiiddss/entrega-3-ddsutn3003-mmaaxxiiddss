@@ -51,7 +51,8 @@ public class ImplFachadaLogistica{
           depositoNuevoDTO.setStockActual(new ArrayList<>());
           depositoNuevoDTO.getStockActual().add(PaqueteDTO);
           this.depositoRepository.save(this.depositoDataMapper.toDeposito(depositoNuevoDTO));
-          
+          AsignacionDTO asignacionDTO = this.fachadaLogistica.
+          NecesidadMaterial this.fachadaDonadores.satisfacerNecesidad(asignacionDTO.getNecesidadID(),paqueteDTO.getCantidad());
       }
 
       depositoDTO.getStockActual().add(PaqueteDTO);
