@@ -19,7 +19,8 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
 
   private FachadaIncentivos fachadaIncentivos;
 
-  private 
+  private AtomicLong idSecuencialDonador = new AtomicLong(1);
+  private AtomicLong idSecuencialDonadorstats = new AtomicLong(1);
   
   public FachadaDonadoresYEntidades(){
        super();
@@ -34,7 +35,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   @Override
   public NecesidadMaterialDTO registrarNecesidad(NecesidadMaterialDTO necesidadMaterialDTO){
      
-    necesidadMaterialDTO.setID();
+    necesidadMaterialDTO.setID(String.valueOf(idSecuencialDonador.getAndIncrement()));
     val necesidad = this.necesidadDataMapper.toNecesidad(necesidadMaterialDTO);
     val necesidadGuardada = this.necesidadRepository.save(necesidad);
     return this.necesidadDataMapper.toNecesidadDTO(necesidadGuardada);
@@ -145,6 +146,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
         
        DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
        DonadorStatsDTO donadorStatsDTO = new donadorStatsDTO();
+       donadorStatsDTO.setID(String.valueOf(
        donadorStatsDTO.setEstado(donadorDTO.getEstado());
        donadorStatsDTO.setCategoria(donadorDTO.getCategoria());
        
