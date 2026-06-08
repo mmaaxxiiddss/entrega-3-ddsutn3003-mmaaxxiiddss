@@ -44,7 +44,10 @@ public class ImplFachadaLogistica{
       {
           depositoNuevoDTO = new DepositoDTO();
           depositoNuevoDTO.setID(depositoDTO.getID()+1);
-          depositoNuevoDTO.setCantidadMaxima(depositoDTO.getCantidadMaxima());
+          depositoNuevoDTO.setAlgoritmo(depositoDTO.getAlgoritmo());
+          depositoNuevoDTO.setNombre(depositoDTO.getNombre());
+          depositoNuevoDTO.setDireccion(depositoDTO.getDireccion());
+          depositoNuevoDTO.setCapacidadMaxima(depositoDTO.getCapacidadMaxima());
           depositoNuevoDTO.setStockActual(new ArrayList<>());
       }
     
