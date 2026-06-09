@@ -28,4 +28,48 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class DonadoresTest{
 
 
+  FachadaDonadoresYEntidades instancia;
+  @Mock FachadaIncentivos fachadaIncentivos;
+
+  DonadorDTO donadorEjemplo;
+  EntidadBeneficaDTO entidadEjemplo;
+  NecesidadMaterialDTO necesidadEjemplo;
+
+  @SneakyThrows
+  @BeforeEach
+  void setUp() {
+
+    var clazz = ClassFinder.findClass();
+    instancia = (FachadaDonadoresYEntidades) clazz.getDeclaredConstructor().newInstance();
+
+    instancia.setFachadaIncentivos(fachadaIncentivos);
+
+    donadorEjemplo =
+        new DonadorDTO(
+            null,
+            "donador1",
+            "donador1",
+            5,
+            "donador1",
+            "donador1",
+            "donador1",
+            EstadoDonadorEnum.VERIFICADO,
+            "donador1");
+    entidadEjemplo = new EntidadBeneficaDTO(null, "entidad1", "entidad1", "entidad1", "entidad1");
+    necesidadEjemplo =
+        new NecesidadMaterialDTO(
+            null,
+            "entidad1",
+            5,
+            "necesidad1",
+            5,
+            "producto1",
+            TipoNecesidadMaterialEnum.EXTRAORDINARIA);
+  }
+
+  static boolean condicion() {
+
+    return FachadaDonadoresYEntidades.class.isAssignableFrom(Fachada.class);
+           }
+
 }
