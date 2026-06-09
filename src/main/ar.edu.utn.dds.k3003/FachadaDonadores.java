@@ -25,6 +25,8 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   
   private AtomicLong idSecuencialDonador = new AtomicLong(1);
   private AtomicLong idSecuencialDonadorstats = new AtomicLong(1);
+  private AtomicLong idSecuencialQueja = new AtomicLong(1);
+
   
   public FachadaDonadoresYEntidades(){
        super();
@@ -40,18 +42,19 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   @Override
   public NecesidadMaterialDTO registrarNecesidad(NecesidadMaterialDTO necesidadMaterialDTO){
      
-    necesidadMaterialDTO.setID(String.valueOf(idSecuencialDonador.getAndIncrement()));
+    necesidad.setID(String.valueOf(idSecuencialDonador.getAndIncrement()));
     val necesidad = this.necesidadDataMapper.toNecesidad(necesidadMaterialDTO);
     val necesidadGuardada = this.necesidadRepository.save(necesidad);
     return this.necesidadDataMapper.toNecesidadDTO(necesidadGuardada);
 
-    
   }
 
   @Override
-  QuejaDTO agregarQueja(QuejaDTO quejaDTO) throws NoSuchElementException{
-
+  QuejaDTO agregarQueja(QuejaDTO quejaDTO) throws NoSuchElementException
+  {
+    
     val queja = this.quejasDataMapper.toQueja(quejaDTO);
+    queja.SetID(String.valueOf(idSecuencialQueja.getAndIncrement()));
     val quejaGuardada = this.quejasRepository.save(queja);
     
     return this.quejasDataMapper.toQuejaDTO(quejaGuardada);
@@ -96,7 +99,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
     DonadorDTO modifcarCategoria(String donadorID,String categoria) throws NoSuchElementException
     {
         DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
-        if(categoria == "VERIFICADO" )
+        if(categoria == "OCASIONAL" )
            
            val donaciones = this.fachadaDonaciones.getDonacionesRepository().findAll().filter(d -> d.getDonadorID().equals(donadorID)).collect(Collectors.toList());
              
@@ -109,15 +112,11 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
              
            }
            
-           
-      
            List<String> setCategorias = eliminarDuplicados(categoriasRepetidas);
            if(setCategorias.size() >= 3){
                  donadorDTO.setCategoria("COLABORADOR");
            }
 
-           
-      
       return donadorDTO;
     
     }
