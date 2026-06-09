@@ -26,7 +26,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   private AtomicLong idSecuencialDonador = new AtomicLong(1);
   private AtomicLong idSecuencialDonadorstats = new AtomicLong(1);
   private AtomicLong idSecuencialQueja = new AtomicLong(1);
-
+  private AtomicLong idSecuencialNecesidadMaterial = new AtomicLong(1);
   
   public FachadaDonadoresYEntidades(){
        super();
@@ -42,8 +42,9 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   @Override
   public NecesidadMaterialDTO registrarNecesidad(NecesidadMaterialDTO necesidadMaterialDTO){
      
-    necesidad.setID(String.valueOf(idSecuencialDonador.getAndIncrement()));
+    
     val necesidad = this.necesidadDataMapper.toNecesidad(necesidadMaterialDTO);
+    necesidad.setID(String.valueOf(idSecuencialDonador.getAndIncrement()));
     val necesidadGuardada = this.necesidadRepository.save(necesidad);
     return this.necesidadDataMapper.toNecesidadDTO(necesidadGuardada);
 
@@ -53,11 +54,11 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   QuejaDTO agregarQueja(QuejaDTO quejaDTO) throws NoSuchElementException
   {
     
-    val queja = this.quejasDataMapper.toQueja(quejaDTO);
+    val queja = this.quejaDataMapper.toQueja(quejaDTO);
     queja.SetID(String.valueOf(idSecuencialQueja.getAndIncrement()));
-    val quejaGuardada = this.quejasRepository.save(queja);
+    val quejaGuardada = this.quejaRepository.save(queja);
     
-    return this.quejasDataMapper.toQuejaDTO(quejaGuardada);
+    return this.quejaDataMapper.toQuejaDTO(quejaGuardada);
     
   }
 
@@ -70,11 +71,11 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   @Override
   List<QuejaDTO> obtenerQuejasDe(String donadorID) throws NoSuchElementException{
     
-   val quejasDeDonador = quejasRepository.findAll().stream().filter(q -> q.getDonadorId().equals(donadorID)).collect(Collectors.toList());
+   val quejasDeDonador = this.quejaRepository.findAll().stream().filter(q -> q.getDonadorId().equals(donadorID)).collect(Collectors.toList());
    List<QuejaDTO> quejasDeDonadorDTO = new ArrayList<>();
     for(val queja : quejasDeDonador)
      {
-         quejasDeDonadorDTO.add(quejasDataMapper.toQuejaDTO(queja));
+         quejasDeDonadorDTO.add(this.quejaDataMapper.toQuejaDTO(queja));
      }
     
    return quejasDeDonadorDTO;
@@ -86,12 +87,14 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
       throws NoSuchElementException{
 
           DonadorDTO donadorDTO = buscarDonadorPorId(donadorID);
+          val donador = this.donadorDataMapper.toDonador(donadorDTO);
           if(obtenerQuejasDe(donadorID).size >= 5 && estado == EstadoDonadorEnum.VERIFICADO)
           donador.setEstado(EstadoDonadorEnum.SOSPECHOSO);
           if(obtenerQuejasDe(donadorID).size >= 10 && estado == EstadoDonadorEnum.SOSPECHOSO)
           donador.setEstado(EstadoDonadorEnum.BANEADO);
+          val donadorGuardado = this.donadorRepository(donador);
         
-          return donadorDTO;
+          return this.donadorDataMapper.toDonadorDTO(donadorGuardado);
         
     }
 
@@ -99,8 +102,9 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
     DonadorDTO modifcarCategoria(String donadorID,String categoria) throws NoSuchElementException
     {
         DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
+        val donador = this.donadorDataMapper.toDonador(donadorDTO);
         if(categoria == "OCASIONAL" )
-           
+        {
            val donaciones = this.fachadaDonaciones.getDonacionesRepository().findAll().filter(d -> d.getDonadorID().equals(donadorID)).collect(Collectors.toList());
              
            List<String> categoriasRepetidas = new ArrayList<>();
@@ -108,15 +112,18 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
            {
              
            ProductoDTO productoDTO = this.fachadaDonacion.buscarProductoPorID(donacion.getProductoID());
-           categoriasRepetidas.add(this.fachadaDonaciones.getCategoriaRepository().findById(productoDTO.getCategoriaID()).getNombre());
+           categoriasRepetidas.add(this.fachadaDonaciones.getCategoriaRepository().findById(productoDTO.CategoriaID()).getNombre());
              
            }
            
            List<String> setCategorias = eliminarDuplicados(categoriasRepetidas);
            if(setCategorias.size() >= 3){
-                 donadorDTO.setCategoria("COLABORADOR");
+                 donador.setCategoria("COLABORADOR");
            }
-
+           val donadorGuardado = this.donadorRepository(donador);
+           return this.donadorDataMapper.toDonadorDTO(donadorGuardado);
+      }
+      
       return donadorDTO;
     
     }
