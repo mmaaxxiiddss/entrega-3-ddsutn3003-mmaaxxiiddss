@@ -21,7 +21,12 @@ public class ImplFachadaIncentivos{
            super();
            this.misionRepo = new InMemoryMisionRepo();
            this.misionDataMapper = new MisionDataMapper();
-           this.fachadaLogistica = new FachadaLogistica();
+           this.insigniaRepo = new InMemoryInsigniaRepo();
+           this.insigniaDataMapper = new InsigniaDataMapper();
+            
+            this.fachadaLogistica = new FachadaLogistica();
+            this.fachadaDonacion = new FachadaDonacion();
+            this.fachadaDonador = new FachadaDonador();
            
       }
 
@@ -51,7 +56,16 @@ public class ImplFachadaIncentivos{
       @Override
       void procesarDonador(String donadorID) throws NoSuchElementException{
 
+           
+           DonadorDTO donadorDTO = this.fachadaDonador.buscarDonadorPorID(donadorID);
+           List<DonacionDTO> donacionesDTO = this.fachadaDonacion.getRepo().findAll().stream().filter(d -> d.getDonadorID().equals(donadorID)).collect(Collectors.toList());
+            List<String> donacionesString = donacionesDTO.stream().map(Donacion::getID).collect(Collectors.toList());
+            for(val donacion : donacionesDTO)
+                  {
+                      verificarExistenciaMision(donadorDTO);
+                      listarPorFecha(donacion,fechaActual);
 
+                  }
             
       }
       
