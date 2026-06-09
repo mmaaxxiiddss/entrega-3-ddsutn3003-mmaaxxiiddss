@@ -105,7 +105,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
            {
              
            ProductoDTO productoDTO = this.fachadaDonacion.buscarProductoPorID(donacion.getProductoID());
-           categoriasRepetidas.add(this.fachadaDonaciones.getcategoriaRepository().findById((productoDTO.getCategoriaID()));
+           categoriasRepetidas.add(this.fachadaDonaciones.getCategoriaRepository().findById(productoDTO.getCategoriaID()).getNombre());
              
            }
            
@@ -180,6 +180,12 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   void setFachadaIncentivos(FachadaIncentivos fachadaIncentivos){
 
        this.fachadaIncentivos = fachadaIncentivos;
+  }
+
+  List<String> eliminarDuplicados(List<String> categoriasDuplicadas)
+  {
+     List<String> setCategorias = categoriasDuplicadas.stream().distinct().toList();
+     return setCategorias;
   }
 
 }
