@@ -76,7 +76,7 @@ public class DonadoresTest{
   void testMisionCompletitud(){
     
       Assertions.assertEquals(setCategorias,3);
-      Assertions.assertEquals(donadorDTO.getCategoria(),"COLABORADOR");
+      Assertions.assertEquals(donadorDTO.Categoria(),"COLABORADOR");
   
   }
 
@@ -88,7 +88,7 @@ public class DonadoresTest{
 
   Assertions.assertEquals(ultimasDonaciones,5);
    Assertions.assertEquals(cantidadDonada,"Tendencia Ascendente");
-     Assertions.assertEquals(donadorDTO.getCategoria(),"SALVADOR");
+     Assertions.assertEquals(donadorDTO.Categoria(),"SALVADOR");
   }
 
   @Test
@@ -97,7 +97,15 @@ public class DonadoresTest{
     
        Assertions.assertEquals(cantidadDonaciones,10);
        Assertions.assertEquals(productosDiferentes,50);
-       Assertions.assertEquals(donadorDTO.getCategoria(),"REVOLUCIONARIO");
+       Assertions.assertEquals(donadorDTO.Categoria(),"REVOLUCIONARIO");
+  }
+  
+  @Test
+  void MisionDonacionesExitosas(){
+
+    Assertions.assertEquals(cantidadDonaciones,20);
+    Assertions.assertEquals(sinQuejas,20);
+    Assertions.assertEquals( donadorDTO.Categoria(),"TRANSFORMADOR");
   }
   
 }
