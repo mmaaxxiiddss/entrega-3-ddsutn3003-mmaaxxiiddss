@@ -72,4 +72,12 @@ public class DonadoresTest{
     return FachadaDonadoresYEntidades.class.isAssignableFrom(Fachada.class);
            }
 
+  @Test
+  void testMisionCompletitud(){
+    
+      Assertions.assertEquals(setCategorias,3);
+      Assertions.assertEquals(donadorDTO.getCategoria(),"COLABORADOR");
+  
+  }
+  
 }
