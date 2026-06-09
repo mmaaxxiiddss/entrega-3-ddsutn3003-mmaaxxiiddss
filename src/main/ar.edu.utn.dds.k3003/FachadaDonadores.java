@@ -163,19 +163,17 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   DonadorStatsDTO estadisticasDonador(String donadorID){
         
        DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
-       DonadorStatsDTO donadorStatsDTO = new donadorStatsDTO();
-       donadorStatsDTO.setID(String.valueOf(idSecuencialDonadorstats.getAndIncrement()));
-       donadorStatsDTO.setEstado(donadorDTO.getEstado());
-       donadorStatsDTO.setCategoria(donadorDTO.getCategoria());
+       DonadorStats donadorStats = new donadorStats();
+       donadorStats.setID(String.valueOf(idSecuencialDonadorstats.getAndIncrement()));
+       donadorStats.setEstado(donadorDTO.getEstado());
+       donadorStats.setCategoria(donadorDTO.getCategoria());
        
-       List<InsigniaDTO> insigniasDTO = this.fachadaIncentivos.getInsigniasDeDonador(donadorID);
+       List<Insignia> insignias = this.fachadaIncentivos.getInsigniasDeDonador(donadorID);
        List<String> insigniasID = insigniasDTO.stream().map(Insignia::getID).collect(Collectors.toList());
-       MisionDTO misionDTO = this.fachadaIncentivos.getMisionEnCursoDeDonador(donadorID);
+       Mision mision = this.fachadaIncentivos.getMisionEnCursoDeDonador(donadorID);
 
-       donadorStatsDTO.setInsigniasID(insigniasID);
-       donadorStatsDTO.setMisionActualID(misionDTO.getID());
-
-       val donadorstats = this.donadorStatsDataMapper.toDonadorStats(donadorStatsDTO);
+       donadorStats.setInsigniasID(insigniasID);
+       donadorStats.setMisionActualID(mision.getID());
        val donadorstatsGuardado = this.donadorstatsRepository.save(donadorstats);
          
        return this.donadorStatsDataMapper.toDonadorStatsDTO(donadorstatsGuardado);
