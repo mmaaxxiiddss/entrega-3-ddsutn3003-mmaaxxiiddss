@@ -4,12 +4,13 @@ package ar.edu.utn.dds.k3003.catedra.fachadas.FachadaDonadoresYEntidades;
 
 import java.util.List;
 
+
 public class FachadaDonadores implements FachadaDonadoresYEntidades {
 
   private NecesidadMaterialRepository necesidadMaterialRepository;
   private QuejaRepository quejaRepository;
-  
-  private EntidadBeneficaRepository entidadRepository;
+  private DonadorStatsDataMapper donadorStatsDataMapper;
+  private EntidadBeneficaRepository entidadBeneficaRepository;
   private DonadorRepository donadorRepository;
 
   private DonadorstatsRepository donadorstatsRepository;
@@ -17,6 +18,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   private NecesidadMaterialDataMapper necesidadMaterialDataMapper;
   private QuejaDataMapper quejaDataMapper;
 
+  
   private FachadaIncentivos fachadaIncentivos;
 
   private AtomicLong idSecuencialDonador = new AtomicLong(1);
@@ -29,7 +31,8 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
        quejaRepository = new InMemoryQuejaRepo();
        quejaDataMapper = new QuejaDataMapper();
        donadorRepository = new InMemoryDonadorRepo();
-       donadorstatsRepository = InMemoryDonadorstatsRepo();
+       donadorstatsRepository = new InMemoryDonadorstatsRepo();
+       entidadBeneficaRepository = new InMemoryEntidadRepo();
   }
   
   @Override
@@ -146,7 +149,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
         
        DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
        DonadorStatsDTO donadorStatsDTO = new donadorStatsDTO();
-       donadorStatsDTO.setID(String.valueOf(
+       donadorStatsDTO.setID(String.valueOf(idSecuencialDonadorstats.getAndIncrement()));
        donadorStatsDTO.setEstado(donadorDTO.getEstado());
        donadorStatsDTO.setCategoria(donadorDTO.getCategoria());
        
@@ -157,7 +160,11 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
        donadorStatsDTO.setInsigniasID(insigniasID);
        donadorStatsDTO.setMisionActualID(misionDTO.getID());
 
-       return donadorStatsDTO;
+       val donadorstats = this.donadorStatsDataMapper.toDonadorStats(donadorStatsDTO);
+       val donadorstatsGuardado = this.donadorstatsRepository.save(donadorstats);
+         
+       return this.donadorStatsDataMapper.toDonadorStatsDTO(donadorstatsGuardado);
+
   }
 
   @Override
