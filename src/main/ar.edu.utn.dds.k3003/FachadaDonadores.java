@@ -20,7 +20,9 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
 
   
   private FachadaIncentivos fachadaIncentivos;
+  private FachadaDonaciones fachadaDonaciones;
 
+  
   private AtomicLong idSecuencialDonador = new AtomicLong(1);
   private AtomicLong idSecuencialDonadorstats = new AtomicLong(1);
   
@@ -66,7 +68,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   List<QuejaDTO> obtenerQuejasDe(String donadorID) throws NoSuchElementException{
     
    val quejasDeDonador = quejasRepository.findAll().stream().filter(q -> q.getDonadorId().equals(donadorID)).collect(Collectors.toList());
-   List<QuejaDTO> quejasDeDonadorDTO = new ArrayList();
+   List<QuejaDTO> quejasDeDonadorDTO = new ArrayList<>();
     for(val queja : quejasDeDonador)
      {
          quejasDeDonadorDTO.add(quejasDataMapper.toQuejaDTO(queja));
@@ -96,18 +98,23 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
         DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
         if(categoria == "VERIFICADO" )
            
-           val donaciones = 
-           
+           val donaciones = this.fachadaDonaciones.getDonacionesRepository().findAll().filter(d -> d.getDonadorID().equals(donadorID)).collect(Collectors.toList());
+             
+           List<String> categoriasRepetidas = new ArrayList<>();
            for(val donacion : donaciones) 
            {
+             
            ProductoDTO productoDTO = this.fachadaDonacion.buscarProductoPorID(donacion.getProductoID());
-           
+           categoriasRepetidas.add(productoDTO.get
+             
            }
            
-           List<CategoriaDTO> categoriasFiltradasDTO = eliminarDuplicados(categoriasRepetidasDTO);
-           if(categoriasFiltradasDTO.size >= 3){
+           List<String> setCategorias = eliminarDuplicados(categoriasRepetidas);
+           if(setCategorias.size() >= 3){
                  donadorDTO.setCategoria("COLABORADOR");
            }
+
+           
       
       return donadorDTO;
     
