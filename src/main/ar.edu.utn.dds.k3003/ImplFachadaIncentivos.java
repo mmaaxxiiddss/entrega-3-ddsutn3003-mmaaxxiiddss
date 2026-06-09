@@ -43,6 +43,7 @@ public class ImplFachadaIncentivos{
           DonadorStatsDTO donadorStatsDTO = this.fachadaDonador.estadisticasDonador(donadorID);
           val donadorStats = this.fachadaDonador.getDataMapper().toDonadorStats(donadorStatsDTO);
           donadorStats.getInsigniasID().add(insigniaDTO.ID());
+            val donadorStatsGuardado = this.fachadaDonador.getRepo().save(donadorStats);
             
             
       }
