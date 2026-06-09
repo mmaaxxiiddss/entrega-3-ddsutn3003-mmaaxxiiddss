@@ -79,5 +79,16 @@ public class DonadoresTest{
       Assertions.assertEquals(donadorDTO.getCategoria(),"COLABORADOR");
   
   }
+
+  @Test
+  void testMisionDonacionesAscendentes()
+ {
+
+
+
+  Assertions.assertEquals(ultimasDonaciones,5);
+   Assertions.assertEquals(cantidadDonada,"Tendencia Ascendente");
+     
+  }
   
 }
