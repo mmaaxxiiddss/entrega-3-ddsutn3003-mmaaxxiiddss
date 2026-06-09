@@ -105,10 +105,12 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
            {
              
            ProductoDTO productoDTO = this.fachadaDonacion.buscarProductoPorID(donacion.getProductoID());
-           categoriasRepetidas.add(productoDTO.get
+           categoriasRepetidas.add(this.fachadaDonaciones.getcategoriaRepository().findById((productoDTO.getCategoriaID()));
              
            }
            
+           
+      
            List<String> setCategorias = eliminarDuplicados(categoriasRepetidas);
            if(setCategorias.size() >= 3){
                  donadorDTO.setCategoria("COLABORADOR");
