@@ -25,9 +25,8 @@ public class ImplFachadaLogistica{
   @Override
   AsignacionDTO buscarAsignacionPorPaqueteID(String paqueteID) throws NoSuchElementException
   {
-       
-
-    
+       val asignacion = this.asignacionRepo.findAll().stream().filter(a -> a.getPaqueteID().equals( paqueteID)).findFirst(); 
+       return this.asignacionDataMapper.toAsignacionDTO(asignacion);
   }
     
   @Override
