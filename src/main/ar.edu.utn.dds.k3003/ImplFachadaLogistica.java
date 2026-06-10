@@ -52,10 +52,23 @@ public class ImplFachadaLogistica{
 
       
       AsignacionDTO asignacionDTO = buscarAsignacionPorID(paqueteDTO.ID());
-   
+      DepositoDTO depositoDTO = buscarDepositoPorID(paqueteDTO.getDepositoID());
+  val deposito = this.depositoDataMapper.toDeposito(depositoDTO);
   val asignacion = this.asignacionDataMapper.toAsignacion(asignacionDTO);
+     int cantidadDonada = 0;
+    for(val paquete : deposito.getStockActual())
+      {
+          cantidadDonada = cantidadDonada + paquete.getCantidad();
+      }
     
-      return asignacionDTO;
+    for(val necesidad : necesidades)
+      {
+          
+        
+      }
+    
+      val asignacionGuardada = this.asignacionRepository.save(asignacion);
+      return this.asignacionDataMapper.toAsignacionDTO(asignacionGuardada);
   }
   
   @Override
