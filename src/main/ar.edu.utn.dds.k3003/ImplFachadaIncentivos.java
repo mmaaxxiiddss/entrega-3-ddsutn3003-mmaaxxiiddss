@@ -31,10 +31,26 @@ public class ImplFachadaIncentivos{
       }
 
       @Override
+      List<InsigniaDTO> getInsigniasDeDonador(String donadorID) throws NoSuchElementException
+      {
+          val donadorStats = this.fachadaDonador.getStatsRepo().findById(donadorID);
+            DonadorStatsDTO donadorStatsDTO = this.fachadaDonador.getDataMapper().toDonadorStatsDTO(donadorStats);
+            List<InsigniaDTO> InsigniasDTO = New ArrayList<>();
+           for(val insigniaid : donadorStatsDTO.InsigniasID())
+            {
+                 InsigniasDTO.add(this.insigniaDataMapper.toInsigniaDTO(insigniaid));
+            }
+            
+            return InsigniasDTO;
+            
+      }
+      
+      @Override
       MisionDTO getMisionEnCursoDeDonador(String donadorID) throws NoSuchElementException{
           val donadorStats = this.fachadaDonador.getStatsRepo().findById(donadorID);
           DonadorStatsDTO = this.fachadaDonador.getDataMapper().toDonadorStatsDTO(donadorStats);
           MisionDTO misionDTO = this.misionesRepository.findById(donadorStatsDTO.MisionActual());
+          return misionDTO;
       }
       
       @Override
