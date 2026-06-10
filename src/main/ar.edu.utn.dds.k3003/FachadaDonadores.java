@@ -196,5 +196,9 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
     {
         return this.donadorstatsrepository;
     }
+  public DonadorRepository getDonadorRepo()
+  {
+        return this.donadorRepository;
+  }
 
 }
