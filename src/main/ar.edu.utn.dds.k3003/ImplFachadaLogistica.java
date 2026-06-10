@@ -56,7 +56,7 @@ public class ImplFachadaLogistica{
   val deposito = this.depositoDataMapper.toDeposito(depositoDTO);
   val asignacion = this.asignacionDataMapper.toAsignacion(asignacionDTO);
       int cantidadDonada = 0;
-      List<int> restoCantidad = new ArrayList<>();
+      List<Necesidad_Resto> restoCantidad = new ArrayList<>();
       for(val paquete : deposito.getStockActual())
       {
           cantidadDonada = cantidadDonada + paquete.getCantidad();
@@ -71,11 +71,13 @@ public class ImplFachadaLogistica{
           }
       }
     
-      restoCantidad.stream
+      
       int menorResto = 0;
       menorResto = Collections.min(restoCantidad);
-     
+      Necesidad_Resto ne_R = restoCantidad.stream().filter(rc -> rc.getResto().equals(menorResto)).findFirst();
+      asignacion.setNecesidadID(ne_R.getNecesidadID());
       val asignacionGuardada = this.asignacionRepository.save(asignacion);
+      
       return this.asignacionDataMapper.toAsignacionDTO(asignacionGuardada);
   }
   
