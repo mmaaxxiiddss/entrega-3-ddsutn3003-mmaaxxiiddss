@@ -123,6 +123,18 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
            val donadorGuardado = this.donadorRepository(donador);
            return this.donadorDataMapper.toDonadorDTO(donadorGuardado);
       }
+      if(categoria = "COLABORADOR")
+      {
+           List<Queja> quejass = new ArrayList<>();
+           val donaciones = this.fachadaDonaciones.getDonacionesRepository().findAll().filter(d -> d.getDonadorID().equals(donadorID)).collect(Collectors.toList()));
+           for(var donacion : donaciones)
+           {
+                val quejas = this.fachadaDonaciones.getQuejaRepo().findAll().stream().filter(q -> q.getDonacionID().equals(donacion.getID())).collect(Collectors.toList());
+                quejass.add(quejas);
+             
+           }
+                                                                                                                                              
+      }
       
       return donadorDTO;
     
