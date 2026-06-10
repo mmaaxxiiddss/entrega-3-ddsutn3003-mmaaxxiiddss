@@ -86,7 +86,12 @@ public class ImplFachadaIncentivos{
 
           if(this.fachadaDonador.getRepo().findById(donadorDTO.ID()).isPresent())
             {  
-                  throw new DonadorExisteMisionException(" donador existe , mision actual " + getMisionEnCursoDeDonador(donadorDTO.ID()).Nombre());
+                  throw new DonadorExisteMisionException("procesar donador existe , mision actual " + getMisionEnCursoDeDonador(donadorDTO.ID()).Nombre());
+            }
+
+            if(this.fachadaDonador.getRepo().findById(donadorDTO.ID()).isEmpty())
+            {
+                  throw new DonadorNoExisteException(" procesar donador, no existe donador ");
             }
             
       }
