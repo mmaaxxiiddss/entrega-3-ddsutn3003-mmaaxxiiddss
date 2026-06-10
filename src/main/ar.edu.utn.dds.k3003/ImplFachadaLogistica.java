@@ -51,6 +51,9 @@ public class ImplFachadaLogistica{
       String depositoID, PaqueteDTO paqueteDTO, List<NecesidadMaterialDTO> necesidades){
 
       
+      AsignacionDTO asignacionDTO = buscarAsignacionPorID(paqueteDTO.ID());
+      
+      return asignacionDTO;
   }
   
   @Override
