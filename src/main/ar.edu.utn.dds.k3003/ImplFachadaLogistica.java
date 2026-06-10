@@ -21,7 +21,24 @@ public class ImplFachadaLogistica{
        this.asignacionRepo = new InMemoryAsignacionRepo();
  
   }
-  
+
+  @Override
+  AsignacionDTO buscarAsignacionPorPaqueteID(String paqueteID) throws NoSuchElementException
+  {
+       
+
+    
+  }
+    
+  @Override
+  DepositoDTO gestionarDonacion(
+      String depositoID, String donacionID, String productoID, Integer cantidad)
+      throws NoSuchElementException
+  {
+      
+    
+  }
+
   @Override
   void setAlgoritmoMM(String depositoID, TipoAlgoritmoEnum tipoAlgoritmo){
 
