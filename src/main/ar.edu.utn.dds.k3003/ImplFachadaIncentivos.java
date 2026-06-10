@@ -63,7 +63,7 @@ public class ImplFachadaIncentivos{
             for(val donacion : donacionesDTO)
                   {
                       verificarExistenciaMision(donadorDTO);
-                      listarPorFecha(donacion,fechaActual);
+                      listarPorFecha(donacionesDTO,fechaActual);
 
                   }
             
@@ -95,4 +95,21 @@ public class ImplFachadaIncentivos{
             }
             
       }
-}
+
+            void listarPorFecha(List<DonacionDTO> donacionesDTO,LocalDate fechaActual)
+            {
+                List<LocalDate> fechas = donacionesDTO.stream().map(Donacion::getFecha).collect(Collectors.toList());
+                List<LocalDate> fechasFiltradas = fechas.stream().filter(f -> f <= fechaActual)
+                System.Out.Println("listado de fechas hasta hoy");
+                for(val fecha : fechas){
+                      
+                    System.Out.Println(fecha);
+                      
+                }
+                  
+            }
+      
+       
+      }
+
+                  
