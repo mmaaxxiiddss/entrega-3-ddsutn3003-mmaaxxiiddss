@@ -52,7 +52,9 @@ public class ImplFachadaLogistica{
 
       
       AsignacionDTO asignacionDTO = buscarAsignacionPorID(paqueteDTO.ID());
-      
+   
+  val asignacion = this.asignacionDataMapper.toAsignacion(asignacionDTO);
+    
       return asignacionDTO;
   }
   
