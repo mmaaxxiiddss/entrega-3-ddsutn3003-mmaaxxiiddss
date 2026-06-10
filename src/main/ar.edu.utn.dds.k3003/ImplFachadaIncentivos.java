@@ -80,5 +80,14 @@ public class ImplFachadaIncentivos{
            this.fachadaDonador = fachadaDonadores;
 
       }
+
       
+      void verificarExistenciaMision(DonadorDTO donadorDTO){
+
+          if(this.fachadaDonador.getRepo().findById(donadorDTO.ID()).isPresent())
+             {
+                  throw new DonadorExisteMisionException(" donador existe , mision actual " + this.fachadaDonador.getRepo().
+             }
+            
+      }
 }
