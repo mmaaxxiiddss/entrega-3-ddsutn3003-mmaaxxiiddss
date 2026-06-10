@@ -30,6 +30,12 @@ public class ImplFachadaIncentivos{
            
       }
 
+      @Override
+      MisionDTO getMisionEnCursoDeDonador(String donadorID) throws NoSuchElementException{
+          val donadorStats = this.fachadaDonador.getStatsRepo().findById(donadorID);
+          DonadorStatsDTO = this.fachadaDonador.getDataMapper().toDonadorStatsDTO(donadorStats);
+          MisionDTO misionDTO = this.misionesRepository.findById(donadorStatsDTO.MisionActual());
+      }
       
       @Override
       void asignarMisionADonador(String donadorID, MisionDTO misionDTO) throws NoSuchElementException
@@ -56,11 +62,9 @@ public class ImplFachadaIncentivos{
       @Override
       void procesarDonador(String donadorID) throws NoSuchElementException{
 
-           
            DonadorDTO donadorDTO = this.fachadaDonador.buscarDonadorPorID(donadorID);
            List<DonacionDTO> donacionesDTO = this.fachadaDonacion.getRepo().findAll().stream().filter(d -> d.getDonadorID().equals(donadorID)).collect(Collectors.toList());
-            List<String> donacionesString = donacionesDTO.stream().map(Donacion::getID).collect(Collectors.toList());
-            for(val donacion : donacionesDTO)
+           for(val donacion : donacionesDTO)
                   {
                       verificarExistenciaMision(donadorDTO);
                       listarPorFecha(donacionesDTO,fechaActual);
@@ -99,9 +103,9 @@ public class ImplFachadaIncentivos{
             void listarPorFecha(List<DonacionDTO> donacionesDTO,LocalDate fechaActual)
             {
                 List<LocalDate> fechas = donacionesDTO.stream().map(Donacion::getFecha).collect(Collectors.toList());
-                List<LocalDate> fechasFiltradas = fechas.stream().filter(f -> f <= fechaActual)
+                List<LocalDate> fechasFiltradas = fechas.stream().filter(f -> f <= fechaActual).collect(Collectors.toList());
                 System.Out.Println("listado de fechas hasta hoy");
-                for(val fecha : fechas){
+                for(val fecha : fechaFiltradas){
                       
                     System.Out.Println(fecha);
                       
