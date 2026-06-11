@@ -79,11 +79,11 @@ public class ImplFachadaIncentivos{
       void procesarDonador(String donadorID) throws NoSuchElementException{
 
            DonadorDTO donadorDTO = this.fachadaDonador.buscarDonadorPorID(donadorID);
-           List<DonacionDTO> donacionesDTO = this.fachadaDonacion.getRepo().findAll().stream().filter(d -> d.getDonadorID().equals(donadorID)).collect(Collectors.toList());
-           for(val donacion : donacionesDTO)
+           List<Donacion> donaciones = this.fachadaDonacion.getRepo().findAll().stream().filter(d -> d.getDonadorID().equals(donadorID)).collect(Collectors.toList());
+           for(val donacion : donaciones)
                   {
                       verificarExistenciaMision(donadorDTO);
-                      listarPorFecha(donacionesDTO,fechaActual);
+                      listarPorFecha(donaciones,fechaActual);
 
                   }
             
@@ -116,9 +116,9 @@ public class ImplFachadaIncentivos{
             
       }
 
-            void listarPorFecha(List<DonacionDTO> donacionesDTO,LocalDate fechaActual)
+            void listarPorFecha(List<Donacion> donaciones,LocalDate fechaActual)
             {
-                List<LocalDate> fechas = donacionesDTO.stream().map(Donacion::getFecha).collect(Collectors.toList());
+                List<LocalDate> fechas = donaciones.stream().map(Donacion::getFecha).collect(Collectors.toList());
                 List<LocalDate> fechasFiltradas = fechas.stream().filter(f -> f <= fechaActual).collect(Collectors.toList());
                 System.Out.Println("listado de fechas hasta hoy");
                 for(val fecha : fechaFiltradas){
