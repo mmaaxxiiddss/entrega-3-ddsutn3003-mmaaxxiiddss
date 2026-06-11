@@ -1,5 +1,4 @@
 package ar.edu.utn.dds.k3003;
-package ar.edu.utn.dds.k3003.catedra.fachadas.FachadaDonadoresYEntidades;
 
 
 import java.util.List;
@@ -97,7 +96,9 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
           donador.setEstado(EstadoDonadorEnum.SOSPECHOSO);
           if(obtenerQuejasDe(donadorID).size >= 10 && estado == EstadoDonadorEnum.SOSPECHOSO)
           donador.setEstado(EstadoDonadorEnum.BANEADO);
-          val donadorGuardado = this.donadorRepository(donador);
+
+          this.donadorRepository.deleteById(donadorDTO.ID());
+          val donadorGuardado = this.donadorRepository.save(donador);
         
           return this.donadorDataMapper.toDonadorDTO(donadorGuardado);
         
@@ -125,6 +126,8 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
            if(setCategorias.size() >= 3){
                  donador.setCategoria("COLABORADOR");
            }
+          
+           this.donadorRepository.deleteById(donadorDTO.ID());
            val donadorGuardado = this.donadorRepository.save(donador);
            return this.donadorDataMapper.toDonadorDTO(donadorGuardado);
       }
@@ -150,6 +153,8 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
                     
                    
                }
+             
+               this.donadorRepository.deleteById(donadorDTO.ID());
                val donadorGuardado = this.donadorRepository.save(donador);
                return this.donadorDataMapper.toDonadorDTO(donadorGuardado);
              
@@ -176,7 +181,8 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
                     donador.setCategoria("REVOLUCIONARIO");
                
                 }
-             
+
+                this.donadorRepository.deleteById(donadorDTO.ID());
                 val donadorGuardado = this.donadorRepository.save(donador);
                 return this.donadorDataMapper.toDonadorDTO(donadorGuardado);
           
