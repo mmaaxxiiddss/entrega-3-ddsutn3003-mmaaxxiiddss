@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Tag(name = "Donadores", description = "API de gestión de donadores")
+@Tag(name = "Entidades", description = "API de gestión de donadores")
 public class EntidadBeneficaController {
 
   private final Fachada fachada;
@@ -31,8 +31,8 @@ public class EntidadBeneficaController {
 
   @Operation(summary = "Agregar una nueva entidad")
   @PostMapping("/entidades")
-  public ResponseEntity<EntidadBeneficaDTO> agregarEntidad(@RequestBody EntidadBeneficaDTO entidadDTO) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(fachada.agregarEntidad(entidadDTO));
+  public ResponseEntity<EntidadBeneficaDTO> agregarEntidad(@RequestBody EntidadBeneficaDTO entidadBeneficaDTO) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(fachada.agregarEntidad(entidadBeneficaDTO));
   }
 
   @Operation(summary = "Buscar entidades")
@@ -50,9 +50,9 @@ public class EntidadBeneficaController {
   
   @Operation(summary = "Agregar una necesidad en una entidad")
   @PostMapping("/entidades/{id}/necesidad")
-  public ResponseEntity<DonadorDTO> agregarNecesidad(
-      @PathVariable String entidadID, @RequestBody NecesidadMaterialDTO necesidadDTO) {
-    return ResponseEntity.ok(fachada.registrarNecesidadMaterial(necesidadDTO));
+  public ResponseEntity<NecesidadMaterialDTO> agregarNecesidad(
+      @PathVariable String entidadID, @RequestBody NecesidadMaterialDTO necesidadMaterialDTO) {
+    return ResponseEntity.ok(fachada.registrarNecesidadMaterial(necesidadMaterialDTO));
   }
 
 
