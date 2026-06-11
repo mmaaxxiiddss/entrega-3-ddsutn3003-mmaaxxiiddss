@@ -42,8 +42,10 @@ public class ImplFachadaLogistica{
   void setAlgoritmoMM(String depositoID, TipoAlgoritmoEnum tipoAlgoritmo){
 
       DepositoDTO depositoDTO = buscarDepositoPorID(depositoID);
-      depositoDTO.setAlgoritmo(tipoAlgoritmo);
-      
+ val deposito = = this.depositoDataMapper.toDeposito(depositoDTO);
+      deposito.setAlgoritmo(tipoAlgoritmo);
+      val depositoGuardado = this.depositoRepo.save(deposito);
+    
   }
 
   @Override
