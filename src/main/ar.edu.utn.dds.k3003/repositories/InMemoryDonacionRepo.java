@@ -31,6 +31,14 @@ public class InMemoryDonacionRepo implements DonacionRepository{
   }
 
   @Override
+  Donacion deleteById(String id)
+  {
+      Donacion donacion = findById(id);
+      return this.donaciones.remove(donacion);
+    
+  }
+
+  @Override
   List<Queja> findAll()
   {
       return this.donaciones;
