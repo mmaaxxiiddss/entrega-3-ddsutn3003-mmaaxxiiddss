@@ -55,10 +55,9 @@ public class ImplFachadaLogistica{
   AsignacionDTO ejecutarMatchmaking(
       String depositoID, PaqueteDTO paqueteDTO, List<NecesidadMaterialDTO> necesidades){
 
-      AsignacionDTO asignacionDTO = buscarAsignacionPorID(paqueteDTO.ID());
-      DepositoDTO depositoDTO = buscarDepositoPorID(paqueteDTO.getDepositoID());
+      Asignacion asignacion = new Asignacion();
+      DepositoDTO depositoDTO = buscarDepositoPorID(paqueteDTO.DepositoID());
   val deposito = this.depositoDataMapper.toDeposito(depositoDTO);
-  val asignacion = this.asignacionDataMapper.toAsignacion(asignacionDTO);
       int cantidadDonada = 0;
       List<Necesidad_Resto> restoCantidad = new ArrayList<>();
       for(val paquete : deposito.getStockActual())
@@ -78,6 +77,8 @@ public class ImplFachadaLogistica{
       int menorResto = 0;
       menorResto = Collections.min(restoCantidad);
       Necesidad_Resto ne_R = restoCantidad.stream().filter(rc -> rc.getResto().equals(menorResto)).findFirst();
+    
+      asignacion.setPaqueteID(paqueteDTO.ID());
       asignacion.setNecesidadID(ne_R.getNecesidadID());
       
       val asignacionGuardada = this.asignacionRepository.save(asignacion);
@@ -92,20 +93,19 @@ public class ImplFachadaLogistica{
       
       if(depositoDTO.CantidadMaxima() == depositoDTO.StockActual().size())
       {
-          val depositoNuevo = new DepositoDTO();
-          depositoNuevo.setID(depositoDTO.getID()+1);
-          depositoNuevo.setAlgoritmo(depositoDTO.getAlgoritmo());
-          depositoNuevo.setNombre(depositoDTO.getNombre());
-          depositoNuevo.setDireccion(depositoDTO.getDireccion());
-          depositoNuevo.setCapacidadMaxima(depositoDTO.getCapacidadMaxima());
+          val depositoNuevo = new Deposito();
+          depositoNuevo.setID(depositoDTO.ID()+1);
+          depositoNuevo.setAlgoritmo(depositoDTO.Algoritmo());
+          depositoNuevo.setNombre(depositoDTO.Nombre());
+          depositoNuevo.setDireccion(depositoDTO.Direccion());
+          depositoNuevo.setCapacidadMaxima(depositoDTO.CapacidadMaxima());
           depositoNuevo.setStockActual(new ArrayList<>());
           depositoNuevo.getStockActual().add(this.paqueteDataMapper.toPaquete(PaqueteDTO));
           val depositoNuevoGuardado = this.depositoRepository.save(depositoNuevo);
          
           
-          AsignacionDTO asignacionDTO = new AsignacionDTO();
+          AsignacionDTO asignacionDTO = buscarAsignacionPorPaqueteID(paqueteDTO.ID());
           val asignacion = this.asignacionDataMapper.toAsignacion(asignacionDTO);
-          asignacion.setPaqueteID(paqueteDTO.ID());
           val asignacionGuardada = this.asignacionRepo.save(asignacion);
           
             
@@ -121,7 +121,7 @@ public class ImplFachadaLogistica{
       deposito.getStockActual().add(paquete);
       this.depositoRepository.save(this.depositoDataMapper.toDeposito(depositoDTO));
       
-      AsignacionDTO asignacionDTO = new AsignacionDTO();
+      AsignacionDTO asignacionDTO = 
        val asignacion = this.asignacionDataMapper.toAsignacion(asignacionDTO);
        asignacion.setPaqueteID(paqueteDTO.ID());
       val asignacionGuardada = this.asignacionRepo.save(asignacion);
