@@ -3,8 +3,8 @@ package ar.edu.utn.dds.k3003;
   
 import java.util.List;
 
-import static org.mockito.Mockito.*;
 
+import static org.mockito.Mockito.*;
 import ar.edu.utn.dds.k3003.Fachada;
 import ar.edu.utn.dds.k3003.catedra.ClassFinder;
 import ar.edu.utn.dds.k3003.catedra.dtos.donadoresYEntidades.*;
@@ -26,7 +26,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 @EnabledIf("ar.edu.utn.dds.k3003.catedra.donadoresyentidades.DonadoresTest#condicion")
 public class DonadoresTest{
-
 
   FachadaDonadoresYEntidades instancia;
   @Mock FachadaIncentivos fachadaIncentivos;
@@ -65,12 +64,13 @@ public class DonadoresTest{
             5,
             "producto1",
             TipoNecesidadMaterialEnum.EXTRAORDINARIA);
-  }
+   }
 
   static boolean condicion() {
 
     return FachadaDonadoresYEntidades.class.isAssignableFrom(Fachada.class);
-           }
+          
+      }
 
   @Test
   void testMisionCompletitud(){
@@ -84,18 +84,17 @@ public class DonadoresTest{
   void testMisionDonacionesAscendentes()
  {
 
-
-
   Assertions.assertEquals(ultimasDonaciones,5);
    Assertions.assertEquals(cantidadDonada,"Tendencia Ascendente");
      Assertions.assertEquals(donadorDTO.Categoria(),"SALVADOR");
-  }
+  
+ }
 
   @Test
   void MisionDonacionRevolucionaria()
   {
     
-       Assertions.assertEquals(cantidadDonaciones,10);
+       Assertions.assertEquals(ultimasDonaciones,10);
        Assertions.assertEquals(productosDiferentes,50);
        Assertions.assertEquals(donadorDTO.Categoria(),"REVOLUCIONARIO");
   }
@@ -106,6 +105,7 @@ public class DonadoresTest{
     Assertions.assertEquals(cantidadDonaciones,20);
     Assertions.assertEquals(sinQuejas,20);
     Assertions.assertEquals( donadorDTO.Categoria(),"TRANSFORMADOR");
+ 
   }
   
 }
