@@ -18,11 +18,9 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   private NecesidadMaterialDataMapper necesidadMaterialDataMapper;
   private QuejaDataMapper quejaDataMapper;
 
-  
   private FachadaIncentivos fachadaIncentivos;
   private FachadaDonaciones fachadaDonaciones;
 
-  
   private AtomicLong idSecuencialDonador = new AtomicLong(1);
   private AtomicLong idSecuencialDonadorstats = new AtomicLong(1);
   private AtomicLong idSecuencialQueja = new AtomicLong(1);
