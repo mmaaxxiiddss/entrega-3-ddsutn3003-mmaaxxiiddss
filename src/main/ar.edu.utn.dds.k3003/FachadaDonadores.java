@@ -125,7 +125,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
            if(setCategorias.size() >= 3){
                  donador.setCategoria("COLABORADOR");
            }
-           val donadorGuardado = this.donadorRepository(donador);
+           val donadorGuardado = this.donadorRepository.save(donador);
            return this.donadorDataMapper.toDonadorDTO(donadorGuardado);
       }
       if(categoria = "COLABORADOR")
@@ -150,13 +150,41 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
                     
                    
                }
-               val donadorGuardado = this.donadorRepository(donador);
+               val donadorGuardado = this.donadorRepository.save(donador);
                return this.donadorDataMapper.toDonadorDTO(donadorGuardado);
              
            }
                                                                                                                                               
       }
-      
+      if(categoria == "TRANSFORMADOR")
+      {
+          DonadorDTO donadorDTO = buscarDonadorPorID(donadorID);
+           val donador = this.donadorDataMapper.toDonador(donadorDTO);
+           int cantProducto = 0;
+           List<Queja> quejass = new ArrayList<>();
+           val donaciones = this.fachadaDonaciones.getDonacionesRepository().findAll().filter(d -> d.getDonadorID().equals(donadorID)).collect(Collectors.toList()));
+           if(donaciones.size() >= 10)
+           {
+                for(val donacion : donaciones)
+                  {
+                      ProductoDTO productoDTO = this.fachadaDonacion.buscarProductoPorID(donacion.getProductoID());
+                      cantProducto = cantProducto + productoDTO.Cantidad();
+
+                  }
+                if(cantProducto >= 50)
+                {
+                    donador.setCategoria("REVOLUCIONARIO");
+               
+                }
+             
+                val donadorGuardado = this.donadorRepository.save(donador);
+                return this.donadorDataMapper.toDonadorDTO(donadorGuardado);
+          
+           }
+
+
+      }
+        
       return donadorDTO;
     
     }
