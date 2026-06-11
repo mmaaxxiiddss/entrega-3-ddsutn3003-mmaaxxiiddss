@@ -12,12 +12,14 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   private DonadorStatsDataMapper donadorStatsDataMapper;
   private EntidadBeneficaRepository entidadBeneficaRepository;
   private DonadorRepository donadorRepository;
-
+  private DonadorDataMapper donadorDataMapper;
   private DonadorstatsRepository donadorstatsRepository;
-  
+  private EntidadBeneficaDataMapper entidadBeneficaDataMapper;
+  private DonadorstatsDataMapper = donadorstatsDataMapper;
   private NecesidadMaterialDataMapper necesidadMaterialDataMapper;
   private QuejaDataMapper quejaDataMapper;
 
+  
   private FachadaIncentivos fachadaIncentivos;
   private FachadaDonaciones fachadaDonaciones;
 
@@ -28,6 +30,7 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
   
   public FachadaDonadoresYEntidades(){
        super();
+    
        necesidadMaterialRepository = new InMemoryNecesidadMaterialRepo();
        necesidadMaterialDataMapper = new NecesidadMaterialDataMapper();
        quejaRepository = new InMemoryQuejaRepo();
@@ -35,7 +38,11 @@ public class FachadaDonadores implements FachadaDonadoresYEntidades {
        donadorRepository = new InMemoryDonadorRepo();
        donadorstatsRepository = new InMemoryDonadorstatsRepo();
        entidadBeneficaRepository = new InMemoryEntidadRepo();
-  }
+       entidadBeneficaDataMapper = new EntidadBeneficaDataMapper();
+       donadorstatsDataMapper = new DonadorstatsDataMapper();
+       donadorDataMapper = new DonadorDataMapper();
+       
+}
   
   @Override
   public NecesidadMaterialDTO registrarNecesidad(NecesidadMaterialDTO necesidadMaterialDTO){
