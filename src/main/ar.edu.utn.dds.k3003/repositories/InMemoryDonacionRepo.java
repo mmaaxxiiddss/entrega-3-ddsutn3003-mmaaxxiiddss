@@ -25,7 +25,7 @@ public class InMemoryDonacionRepo implements DonacionRepository{
   {
     Donacion donacionConID = donacion;
     donacionConID.setId(String.valueOf(idSecuencial.getAndIncrement()));
-
+    
     this.donaciones.add(donacionConID);
     return this.findById(donacionConID.getId()).get();
   }
@@ -39,7 +39,7 @@ public class InMemoryDonacionRepo implements DonacionRepository{
   }
 
   @Override
-  List<Queja> findAll()
+  List<Donacion> findAll()
   {
       return this.donaciones;
   }
