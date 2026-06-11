@@ -9,7 +9,9 @@ public class Queja{
 ✓✓✓✓
     private String ID;
     private String donacionID;
-    private 
+    private String donadorID;
+    private LocalDate fecha;
+    private String descripcion;
 
    
 
