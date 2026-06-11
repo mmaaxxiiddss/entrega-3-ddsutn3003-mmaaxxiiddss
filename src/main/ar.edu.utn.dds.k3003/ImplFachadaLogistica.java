@@ -10,7 +10,10 @@ public class ImplFachadaLogistica{
   private AsignacionDataMapper asignacionDataMapper;
   private DepositoRepository depositoRepo;
   private DepositoDataMapper depositoDataMapper;
+  private PaqueteRepo paqueteRepo;
+  private PaqueteDeoo paqueteDepo;
 
+  
   private FachadaDonacion fachadaDonacion;
   private FachadaDonadoresYEntidades fachadaDonadores;
   
@@ -19,7 +22,7 @@ public class ImplFachadaLogistica{
        super();
        this.depositoRepo = new InMemoryDepositoRepo();
        this.asignacionRepo = new InMemoryAsignacionRepo();
- 
+       this.paqueteRepo = new InMemoryPaqueteRepo();
   }
 
   @Override
@@ -52,7 +55,6 @@ public class ImplFachadaLogistica{
   AsignacionDTO ejecutarMatchmaking(
       String depositoID, PaqueteDTO paqueteDTO, List<NecesidadMaterialDTO> necesidades){
 
-      
       AsignacionDTO asignacionDTO = buscarAsignacionPorID(paqueteDTO.ID());
       DepositoDTO depositoDTO = buscarDepositoPorID(paqueteDTO.getDepositoID());
   val deposito = this.depositoDataMapper.toDeposito(depositoDTO);
@@ -73,21 +75,24 @@ public class ImplFachadaLogistica{
           }
       }
     
-      
       int menorResto = 0;
       menorResto = Collections.min(restoCantidad);
       Necesidad_Resto ne_R = restoCantidad.stream().filter(rc -> rc.getResto().equals(menorResto)).findFirst();
       asignacion.setNecesidadID(ne_R.getNecesidadID());
+      
       val asignacionGuardada = this.asignacionRepository.save(asignacion);
+      
+      val depositoGuardado = this.depositoRepository.save(deposito);
       
       return this.asignacionDataMapper.toAsignacionDTO(asignacionGuardada);
   }
   
   @Override
   void reportarEntrega(PaqueteDTO paqueteDTO){
+    
       DepositoDTO depositoDTO = buscarDepositoPorID(paqueteDTO.getDepositoID());
-      val
-      if(depositoDTO.getCantidadMaxima() == depositoDTO.getStockActual().size())
+      
+      if(depositoDTO.CantidadMaxima() == depositoDTO.StockActual().size())
       {
           val depositoNuevo = new DepositoDTO();
           depositoNuevo.setID(depositoDTO.getID()+1);
@@ -107,15 +112,19 @@ public class ImplFachadaLogistica{
           
       }else{
       
-      depositoDTO.StockActual().add(PaqueteDTO);
+      val = this.depositoDataMapper.toDeposito(depositoDTO);
+      val paquete = this.paqueteDataMapper.toPaquete(paqueteDTO);
+      
+      deposito.getStockActual().add(paquete);
       this.depositoRepository.save(this.depositoDataMapper.toDeposito(depositoDTO));
+      
       AsignacionDTO asignacionDTO = buscarAsignacionPorPaqueteID(paqueteDTO.getID());
-      NecesidadMaterialDTO necesidadMaterialDTO = this.fachadaDonadores.satisfacerNecesidad(asignacionDTO.getNecesidadID(),paqueteDTO.getCantidad());
+      
+      NecesidadMaterialDTO necesidadMaterialDTO = this.fachadaDonadores.satisfacerNecesidad(asignacionDTO.NecesidadID(),paqueteDTO.Cantidad());
       val necesidad = this.fachadaDonadores.getNecesidadDataMapper().toNecesidad(necesidadMaterialDTO);
-      vaesidad);
       
       }
-    
+      
   }
 
   @Override
