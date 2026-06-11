@@ -32,16 +32,17 @@ public interface InMemoryNecesidadMaterialRepo implements NecesidadMaterialRepos
   }
 
   Override
-  Paquete deleteById(String id)
+  NecesidadMaterial deleteById(String id)
   {
-      Paquete paquete = findById(id);
-      return this.paquete.remove(paquete);
+      NecesidadMaterial necesidad = findById(id);
+      return this.necesidades.remove(necesidad);
   }
 
   @Override
-  List<Paquete> findAll()
+  List<NecesidadMaterial> findAll()
   {
-      return this.paquetes;
+      return this.necesidades;
+      
   }
   
 }
