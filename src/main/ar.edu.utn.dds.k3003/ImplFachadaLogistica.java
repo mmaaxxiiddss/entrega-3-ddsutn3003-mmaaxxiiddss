@@ -86,30 +86,33 @@ public class ImplFachadaLogistica{
   @Override
   void reportarEntrega(PaqueteDTO paqueteDTO){
       DepositoDTO depositoDTO = buscarDepositoPorID(paqueteDTO.getDepositoID());
+      val
       if(depositoDTO.getCantidadMaxima() == depositoDTO.getStockActual().size())
       {
-          depositoNuevoDTO = new DepositoDTO();
-          depositoNuevoDTO.setID(depositoDTO.getID()+1);
-          depositoNuevoDTO.setAlgoritmo(depositoDTO.getAlgoritmo());
-          depositoNuevoDTO.setNombre(depositoDTO.getNombre());
-          depositoNuevoDTO.setDireccion(depositoDTO.getDireccion());
-          depositoNuevoDTO.setCapacidadMaxima(depositoDTO.getCapacidadMaxima());
-          depositoNuevoDTO.setStockActual(new ArrayList<>());
-          depositoNuevoDTO.getStockActual().add(PaqueteDTO);
-          this.depositoRepository.save(this.depositoDataMapper.toDeposito(depositoNuevoDTO));
-          AsignacionDTO asignacionDTO = buscarAsignacionPorPaqueteID(paqueteDTO.getID());
-          NecesidadMaterialDTO necesidadMaterialDTO = this.fachadaDonadores.satisfacerNecesidad(asignacionDTO.getNecesidadID(),paqueteDTO.getCantidad());
+          val depositoNuevo = new DepositoDTO();
+          depositoNuevo.setID(depositoDTO.getID()+1);
+          depositoNuevo.setAlgoritmo(depositoDTO.getAlgoritmo());
+          depositoNuevo.setNombre(depositoDTO.getNombre());
+          depositoNuevo.setDireccion(depositoDTO.getDireccion());
+          depositoNuevo.setCapacidadMaxima(depositoDTO.getCapacidadMaxima());
+          depositoNuevo.setStockActual(new ArrayList<>());
+          depositoNuevo.getStockActual().add(this.paqueteDataMapper.toPaquete(PaqueteDTO));
+          val depositoNuevoGuardado = this.depositoRepository.save(depositoNuevo);
+         
+          AsignacionDTO asignacionDTO = buscarAsignacionPorPaqueteID(paqueteDTO.ID());
+        
+          NecesidadMaterialDTO necesidadMaterialDTO = this.fachadaDonadores.satisfacerNecesidad(asignacionDTO.NecesidadID(),paqueteDTO.Cantidad());
           val necesidad = this.fachadaDonadores.getNecesidadDataMapper().toNecesidad(necesidadMaterialDTO);
           val necesidadGuardada = this.fachadaDonadores.getNecesidadMaterialRepository().save(necesidad);
           
       }else{
       
-      depositoDTO.getStockActual().add(PaqueteDTO);
+      depositoDTO.StockActual().add(PaqueteDTO);
       this.depositoRepository.save(this.depositoDataMapper.toDeposito(depositoDTO));
       AsignacionDTO asignacionDTO = buscarAsignacionPorPaqueteID(paqueteDTO.getID());
       NecesidadMaterialDTO necesidadMaterialDTO = this.fachadaDonadores.satisfacerNecesidad(asignacionDTO.getNecesidadID(),paqueteDTO.getCantidad());
       val necesidad = this.fachadaDonadores.getNecesidadDataMapper().toNecesidad(necesidadMaterialDTO);
-      val necesidadGuardada = this.fachadaDonadores.getNecesidadMaterialRepository().save(necesidad);
+      vaesidad);
       
       }
     
