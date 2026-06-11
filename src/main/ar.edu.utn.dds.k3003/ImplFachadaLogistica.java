@@ -81,9 +81,7 @@ public class ImplFachadaLogistica{
       asignacion.setNecesidadID(ne_R.getNecesidadID());
       
       val asignacionGuardada = this.asignacionRepository.save(asignacion);
-      
       val depositoGuardado = this.depositoRepository.save(deposito);
-      
       return this.asignacionDataMapper.toAsignacionDTO(asignacionGuardada);
   }
   
@@ -105,7 +103,11 @@ public class ImplFachadaLogistica{
           val depositoNuevoGuardado = this.depositoRepository.save(depositoNuevo);
          
           AsignacionDTO asignacionDTO = buscarAsignacionPorPaqueteID(paqueteDTO.ID());
-        
+          val asignacion = this.asignacionDataMapper.toAsignacion(asignacionDTO);
+          asignacion.setPaqueteID(paqueteDTO.ID());
+          val asignacionGuardada = this.asignacionRepo.save(asignacion);
+          
+            
           NecesidadMaterialDTO necesidadMaterialDTO = this.fachadaDonadores.satisfacerNecesidad(asignacionDTO.NecesidadID(),paqueteDTO.Cantidad());
           val necesidad = this.fachadaDonadores.getNecesidadDataMapper().toNecesidad(necesidadMaterialDTO);
           val necesidadGuardada = this.fachadaDonadores.getNecesidadMaterialRepository().save(necesidad);
@@ -119,7 +121,8 @@ public class ImplFachadaLogistica{
       this.depositoRepository.save(this.depositoDataMapper.toDeposito(depositoDTO));
       
       AsignacionDTO asignacionDTO = buscarAsignacionPorPaqueteID(paqueteDTO.getID());
-      
+                
+        
       NecesidadMaterialDTO necesidadMaterialDTO = this.fachadaDonadores.satisfacerNecesidad(asignacionDTO.NecesidadID(),paqueteDTO.Cantidad());
       val necesidad = this.fachadaDonadores.getNecesidadDataMapper().toNecesidad(necesidadMaterialDTO);
       
