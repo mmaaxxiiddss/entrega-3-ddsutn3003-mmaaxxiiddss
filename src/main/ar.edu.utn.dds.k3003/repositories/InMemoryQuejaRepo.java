@@ -1,6 +1,8 @@
 package ar.edu.utn.dds.k3003.repositories;
 
+
 import java.util.List;
+
 
 public class InMemoryQuejaRepo implements QuejasRepository{
 
@@ -28,6 +30,8 @@ public class InMemoryQuejaRepo implements QuejasRepository{
     return this.findById(quejaConID.getId()).get();
   }
 
+
+  
   @Override
   List<Queja> findAll()
   {
