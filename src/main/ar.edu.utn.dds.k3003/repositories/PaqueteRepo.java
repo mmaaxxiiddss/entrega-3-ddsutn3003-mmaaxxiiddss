@@ -12,7 +12,7 @@ public interface PaqueteRepo{
 
     Paquete deleteById(String id);
         
-      
+    List<Paquete> findAll();
     
   
 }
